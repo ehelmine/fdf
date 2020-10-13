@@ -1,0 +1,44 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/06/09 12:39:09 by ehelmine          #+#    #+#             */
+/*   Updated: 2020/07/31 12:49:05 by ehelmine         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+/*
+** DESCRIPTION
+**   The strdup() function allocates sufficient memory for a copy of the
+**   string s1, does the copy, and returns a pointer to it.  The pointer may
+**   subsequently be used as an argument to the function free(3).
+**
+**   If insufficient memory is available, NULL is returned and errno is set to
+**   ENOMEM.
+*/
+
+#include <stdlib.h>
+#include "libft.h"
+
+char	*ft_strdup(const char *s)
+{
+	size_t	src_sze;
+	size_t	i;
+	char	*dupstr;
+
+	src_sze = ft_strlen(s);
+	dupstr = (char*)malloc(sizeof(*dupstr) * src_sze + 1);
+	if (dupstr == 0)
+		return (0);
+	i = 0;
+	while (i < src_sze)
+	{
+		dupstr[i] = s[i];
+		i++;
+	}
+	dupstr[i] = '\0';
+	return (dupstr);
+}
