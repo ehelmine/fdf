@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/26 11:01:03 by ehelmine          #+#    #+#             */
-/*   Updated: 2020/07/08 17:25:21 by ehelmine         ###   ########.fr       */
+/*   Updated: 2020/10/14 14:42:09 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 #include "libft.h"
 #include <stdlib.h>
 
-static void	**ft_addchar(int i, int w, char **same, const char *s)
+static void	ft_addchar(int i, int w, char **same, const char *s)
 {
 	int ii;
 	int y;
@@ -39,7 +39,7 @@ static void	**ft_addchar(int i, int w, char **same, const char *s)
 	}
 	same[x][y] = '\0';
 	x++;
-	return (0);
+	return ;
 }
 
 static char	**ft_thersplit(int wrds, char c, char **same, const char *s)
@@ -62,7 +62,7 @@ static char	**ft_thersplit(int wrds, char c, char **same, const char *s)
 			w++;
 			i++;
 		}
-		if (!(same[x] = (char *)malloc(sizeof(char) * w + 1)))
+		if (!(same[x] = (char *)malloc(sizeof(char) * (w + 1))))
 			return (NULL);
 		ft_addchar(i, w, &same[x], s);
 		x++;
@@ -98,7 +98,7 @@ char		**ft_strsplit(char const *s, char c)
 	char	**same;
 
 	wrds = ft_counting_words(s, c);
-	if (!(same = (char **)malloc(sizeof(char*) * wrds + 1)))
+	if (!(same = (char **)malloc(sizeof(char*) * (wrds + 1))))
 		return (NULL);
 	same = ft_thersplit(wrds, c, same, s);
 	same[wrds] = NULL;
