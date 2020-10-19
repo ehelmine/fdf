@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/11 23:50:24 by ehelmine          #+#    #+#             */
-/*   Updated: 2020/10/14 15:39:34 by ehelmine         ###   ########.fr       */
+/*   Updated: 2020/10/16 12:00:25 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,12 @@ struct All
 	int spaces;
 	int origspaces;
 	char **file;
+	int **int_arr;
 	char *line;
 	void *mlx_ptr;
 	void *win_ptr;
+	int numbers_in_row;
+	int rows;
 };
 
 int		ft_valid_file(char **file);
