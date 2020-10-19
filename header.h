@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/11 23:50:24 by ehelmine          #+#    #+#             */
-/*   Updated: 2020/10/16 12:00:25 by ehelmine         ###   ########.fr       */
+/*   Updated: 2020/10/19 12:54:06 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <fcntl.h>
 # include <unistd.h>
 
-struct All
+struct			s_map
 {
 	int y;
 	int x;
@@ -33,8 +33,9 @@ struct All
 	void *win_ptr;
 	int numbers_in_row;
 	int rows;
-};
+	int slope;
+}				t_map;
 
-int		ft_valid_file(char **file);
+int		ft_valid_file();
 
 #endif

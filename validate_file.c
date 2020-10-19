@@ -6,92 +6,96 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 11:13:04 by ehelmine          #+#    #+#             */
-/*   Updated: 2020/10/16 12:06:07 by ehelmine         ###   ########.fr       */
+/*   Updated: 2020/10/19 13:09:38 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 #include <stdio.h>
 
-void	ft_get_z(char **file)
+void	ft_get_z()
 {
 	int val;
-	struct All all1;
+	int yy;
+	int xx;
 
-	all1.y = 0;
-	all1.x = 0;
-	while (file[all1.y] != NULL)
+	yy = 0;
+	xx = 0;
+	if (!(t_map.int_arr = (int**)malloc(sizeof(int*) * (100 + 1))))
+		return ;
+	t_map.y = 0;
+	t_map.x = 0;
+	while (t_map.file[t_map.y] != NULL)
 	{
-		while (file[all1.y][all1.x] != '\0')
+		if (!(t_map.int_arr[yy] = (int*)malloc(sizeof(int) * (t_map.origspaces + 1 + 1))))
+				return ;
+		while (t_map.file[t_map.y][t_map.x] != '\0')
 		{
-			file[all1.y] = file[all1.y] + all1.x;
-			val = ft_atoi(file[all1.y]);
-			printf("val %i\n", val);
-
-			while (file[all1.y][all1.x] >= '0' && file[all1.y][all1.x] <= '9' \
-			&& file[all1.y][all1.x] != '\0')
-				all1.x++;
+			t_map.file[t_map.y] = t_map.file[t_map.y] + t_map.x;
+			val = ft_atoi(t_map.file[t_map.y]);
+			t_map.int_arr[yy][xx] = val;
+			xx++;
+			while (t_map.file[t_map.y][t_map.x] >= '0' && t_map.file[t_map.y][t_map.x] <= '9' \
+			&& t_map.file[t_map.y][t_map.x] != '\0')
+				t_map.x++;
 		}
-		all1.x = 0;
-		all1.y++;
+		t_map.int_arr[yy][xx] = '\0';
+		t_map.x = 0;
+		xx = 0;
+		t_map.y++;
+		yy++;
 	}
 }
 
-int		ft_valid_numbers(char **file)
+int		ft_valid_numbers()
 {
-	struct All all1;
-
-	all1.y = 0;
-	all1.x = 0;
-	while (file[all1.y] != NULL)
+	t_map.y = 0;
+	t_map.x = 0;
+	while (t_map.file[t_map.y] != NULL)
 	{
-		while (file[all1.y][all1.x] != '\0')
+		while (t_map.file[t_map.y][t_map.x] != '\0')
 		{
-			if ((file[all1.y][all1.x] >= '0' && file[all1.y][all1.x] <= '9') \
-			|| file[all1.y][all1.x] == ' ' || file[all1.y][all1.x] == '-')
-				all1.x++;
+			if ((t_map.file[t_map.y][t_map.x] >= '0' && t_map.file[t_map.y][t_map.x] <= '9') \
+			|| t_map.file[t_map.y][t_map.x] == ' ' || t_map.file[t_map.y][t_map.x] == '-')
+				t_map.x++;
 			else
 				return (0);
 		}
-		all1.y++;
-		all1.x = 0;
+		t_map.y++;
+		t_map.x = 0;
 	}
 	return (1);
 }
 
-int		ft_valid_spaces(char **file)
+int		ft_valid_spaces()
 {
-	struct All all1;
-
-	all1.y = 0;
-	all1.x = 0;
-	all1.spaces = 0;
-	while (file[all1.y] != NULL)
+	t_map.y = 0;
+	t_map.x = 0;
+	t_map.spaces = 0;
+	while (t_map.file[t_map.y] != NULL)
 	{
-		while (file[all1.y][all1.x] != '\0')
+		while (t_map.file[t_map.y][t_map.x] != '\0')
 		{
-			if (file[all1.y][all1.x] == ' ' && file[all1.y][all1.x - 1] != ' ')
-				all1.spaces++;
-			all1.x++;
+			if (t_map.file[t_map.y][t_map.x] == ' ' && t_map.file[t_map.y][t_map.x - 1] != ' ')
+				t_map.spaces++;
+			t_map.x++;
 		}
-		if (all1.y == 0)
-			all1.origspaces = all1.spaces;
-		if (all1.origspaces != all1.spaces)
+		if (t_map.y == 0)
+			t_map.origspaces = t_map.spaces;
+		if (t_map.origspaces != t_map.spaces)
 			return (0);
-		all1.y++;
-		all1.x = 0;
-		all1.spaces = 0;
+		t_map.y++;
+		t_map.x = 0;
+		t_map.spaces = 0;
 	}
-	all1.numbers_in_row = all1.origspaces + 1;
-	printf("numbers in rows %i\n", all1.numbers_in_row);
 	return (1);
 }
 
-int		ft_valid_file(char **file)
+int		ft_valid_file()
 {
-	if (ft_valid_spaces(file) != 0 && ft_valid_numbers(file) != 0)
+	if (ft_valid_spaces() != 0 && ft_valid_numbers() != 0)
 	{
-		ft_get_z(file);
+		ft_get_z();
 		return (1);
 	}
 	return (0);
