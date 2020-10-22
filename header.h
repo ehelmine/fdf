@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/11 23:50:24 by ehelmine          #+#    #+#             */
-/*   Updated: 2020/10/21 17:01:44 by ehelmine         ###   ########.fr       */
+/*   Updated: 2020/10/22 12:37:48 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,16 +32,20 @@ struct			s_map
 	int x;
 	int xx;
 	int columns;
-	int spaces;
-	int origspaces;
 	char **file;
 	int **int_arr;
 	char *line;
 	void *mlx_ptr;
 	void *win_ptr;
 	int numbers_in_row;
+	int first_row_num;
 	int rows;
 	int slope;
+	int box;
+	int color;
+	int next;
+	int val;
+	int start;
 }				t_map;
 
 int		ft_valid_file();

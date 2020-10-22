@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 15:54:18 by ehelmine          #+#    #+#             */
-/*   Updated: 2020/10/22 08:46:55 by ehelmine         ###   ########.fr       */
+/*   Updated: 2020/10/22 12:50:40 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,66 +18,86 @@ int		ft_exit(void)
 	exit(0);
 }
 
+void	ft_print_base_vertical()
+{
+	t_map.next = 51 + ((t_map.rows - 1) * t_map.box);
+	t_map.columns = t_map.first_row_num;
+	t_map.yy = t_map.rows;
+	while (t_map.columns > 0)
+	{
+		while (t_map.y < t_map.next)
+			mlx_pixel_put(t_map.mlx_ptr, t_map.win_ptr, t_map.x, t_map.y++, t_map.color);
+		t_map.columns--;
+		t_map.y = 50;
+		t_map.x = t_map.x + t_map.box;
+	}
+}
+
+void	ft_print_base_horizontal()
+{
+	printf("how many columns %i\n", t_map.first_row_num);
+	printf("how many rows %i\n", t_map.rows);
+//	t_map.slope = (140-100) / (160-100);
+//	while (t_map.y + t_map.slope < 300 && t_map.x + 1 < 300)
+//		mlx_pixel_put(t_map.mlx_ptr, t_map.win_ptr, t_map.x++, t_map.y++, t_map.color);
+	t_map.next = 51 + ((t_map.first_row_num - 1) * t_map.box);
+	t_map.columns = t_map.first_row_num;
+	t_map.yy = t_map.rows;
+	while (t_map.yy > 0)
+	{
+		while (t_map.x < t_map.next)
+			mlx_pixel_put(t_map.mlx_ptr, t_map.win_ptr, t_map.x++, t_map.y, t_map.color);
+		t_map.yy--;
+		t_map.x = 50;
+		t_map.y = t_map.y + t_map.box;
+	}
+}
+
+void	ft_values_for_print_vertical(int start)
+{
+	
+	t_map.rows = 0;
+	while (t_map.int_arr[t_map.rows] != NULL)
+		t_map.rows++;
+	t_map.color = 0X00ff00;
+	t_map.y = 50;
+	t_map.x = 50;
+	t_map.box = 10;
+	t_map.start = start;
+	if (t_map.first_row_num > 70 || t_map.rows > 70)
+		t_map.box = 5;
+}
+
+void	ft_values_for_print_horizontal(int start)
+{
+	
+	t_map.rows = 0;
+	while (t_map.int_arr[t_map.rows] != NULL)
+		t_map.rows++;
+	t_map.color = 0X00ff00;
+	t_map.y = 50;
+	t_map.x = 50;
+	t_map.box = 10;
+	t_map.start = start;
+	if (t_map.first_row_num > 70 || t_map.rows > 70)
+		t_map.box = 5;
+}
+
 int		ft_choose_key(int key)
 {
 	if (key == ESC_KEY || key == XK_ESCAPE)
 		exit(0);
-	if (key == XK_LEFT)
+	if (key == 123 || key == XK_LEFT)
 		mlx_pixel_put(t_map.mlx_ptr, t_map.win_ptr, t_map.x--, t_map.y, 0X00ff00);
-	if (key == XK_RIGHT)
+	if (key == 124 || key == XK_RIGHT)
 		mlx_pixel_put(t_map.mlx_ptr, t_map.win_ptr, t_map.x++, t_map.y, 0X00ff00);
-	if (key == XK_UP)
+	if (key == 126 || key == XK_UP)
 		mlx_pixel_put(t_map.mlx_ptr, t_map.win_ptr, t_map.x, t_map.y--, 0X00ff00);
-	if (key == XK_DOWN)
+	if (key == 125 || key == XK_DOWN)
 		mlx_pixel_put(t_map.mlx_ptr, t_map.win_ptr, t_map.x, t_map.y++, 0X00ff00);
 	ft_putnbr(key);
 	ft_putchar(' ');
 	return (0);
-}
-
-void	ft_print_base()
-{
-	int color;
-	int val;
-
-	color = 0X00ff00;
-	t_map.rows = 0;
-	printf("how man columns %i\n", t_map.origspaces + 1);
-	while (t_map.file[t_map.rows] != NULL)
-		t_map.rows++;
-	printf("how many rows %i\n", t_map.rows);
-//	t_map.slope = (140-100) / (160-100);
-//	while (t_map.y + t_map.slope < 300 && t_map.x + 1 < 300)
-//		mlx_pixel_put(t_map.mlx_ptr, t_map.win_ptr, t_map.x++, t_map.y++, color);
-	t_map.y = 100;
-	t_map.x = 100;
-	val = 101 + ((t_map.origspaces) * 10);
-	t_map.columns = t_map.origspaces + 1;
-	t_map.yy = t_map.rows;
-	while (t_map.yy > 0)
-	{
-		while (t_map.x < val)
-			mlx_pixel_put(t_map.mlx_ptr, t_map.win_ptr, t_map.x++, t_map.y, color);
-		t_map.yy--;
-		t_map.x = 100;
-		t_map.y = t_map.y + 10;
-	}
-	t_map.y = 100;
-	t_map.x = 100;
-	val = 101 + ((t_map.rows - 1) * 10);
-	t_map.columns = t_map.origspaces + 1;
-	t_map.yy = t_map.rows;
-	while (t_map.columns > 0)
-	{
-		while (t_map.y < val)
-			mlx_pixel_put(t_map.mlx_ptr, t_map.win_ptr, t_map.x, t_map.y++, color);
-		t_map.columns--;
-		t_map.y = 100;
-		t_map.x = t_map.x + 10;
-	}
-	mlx_key_hook(t_map.win_ptr, ft_choose_key, (void*)0);
-	mlx_hook(t_map.win_ptr, 17, 0, ft_exit, (void*)0);
-	mlx_loop(t_map.mlx_ptr);
 }
 
 /*
@@ -130,8 +150,14 @@ int		main(int argc, char **argv)
 		t_map.mlx_ptr = mlx_init();
 		if (t_map.mlx_ptr == NULL)
 			return (0);
-		t_map.win_ptr = mlx_new_window(t_map.mlx_ptr, 1000, 1000, "my fdf");
-		ft_print_base();
+		t_map.win_ptr = mlx_new_window(t_map.mlx_ptr, 1200, 1000, "my fdf");
+		ft_values_for_print_vertical(50);
+		ft_print_base_vertical();
+		ft_values_for_print_horizontal(50);
+		ft_print_base_horizontal();
+		mlx_key_hook(t_map.win_ptr, ft_choose_key, (void*)0);
+		mlx_hook(t_map.win_ptr, 17, 0, ft_exit, (void*)0);
+		mlx_loop(t_map.mlx_ptr);
 //		mlx_clear_window t_map.mlx_ptr, t_map.win_ptr);
 //		mlx_destroy_window t_map.mlx_ptr, t_map.win_ptr);
 	}
