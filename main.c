@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 15:54:18 by ehelmine          #+#    #+#             */
-/*   Updated: 2020/10/19 13:50:48 by ehelmine         ###   ########.fr       */
+/*   Updated: 2020/10/22 08:46:55 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,16 @@ int		ft_exit(void)
 
 int		ft_choose_key(int key)
 {
-	if (key == ESC_KEY)
+	if (key == ESC_KEY || key == XK_ESCAPE)
 		exit(0);
+	if (key == XK_LEFT)
+		mlx_pixel_put(t_map.mlx_ptr, t_map.win_ptr, t_map.x--, t_map.y, 0X00ff00);
+	if (key == XK_RIGHT)
+		mlx_pixel_put(t_map.mlx_ptr, t_map.win_ptr, t_map.x++, t_map.y, 0X00ff00);
+	if (key == XK_UP)
+		mlx_pixel_put(t_map.mlx_ptr, t_map.win_ptr, t_map.x, t_map.y--, 0X00ff00);
+	if (key == XK_DOWN)
+		mlx_pixel_put(t_map.mlx_ptr, t_map.win_ptr, t_map.x, t_map.y++, 0X00ff00);
 	ft_putnbr(key);
 	ft_putchar(' ');
 	return (0);
@@ -29,20 +37,44 @@ int		ft_choose_key(int key)
 
 void	ft_print_base()
 {
-	int i;
 	int color;
+	int val;
 
 	color = 0X00ff00;
-	i = 0;
+	t_map.rows = 0;
 	printf("how man columns %i\n", t_map.origspaces + 1);
-	while (t_map.file[i] != NULL)
-		i++;
-	printf("how many rows %i\n", i);
+	while (t_map.file[t_map.rows] != NULL)
+		t_map.rows++;
+	printf("how many rows %i\n", t_map.rows);
+//	t_map.slope = (140-100) / (160-100);
+//	while (t_map.y + t_map.slope < 300 && t_map.x + 1 < 300)
+//		mlx_pixel_put(t_map.mlx_ptr, t_map.win_ptr, t_map.x++, t_map.y++, color);
 	t_map.y = 100;
 	t_map.x = 100;
-	t_map.slope = (140-100) / (160-100);
-	while (t_map.y + t_map.slope < 300 && t_map.x + 1 < 300)
-		mlx_pixel_put(t_map.mlx_ptr, t_map.win_ptr, t_map.x++, t_map.y++, color);
+	val = 101 + ((t_map.origspaces) * 10);
+	t_map.columns = t_map.origspaces + 1;
+	t_map.yy = t_map.rows;
+	while (t_map.yy > 0)
+	{
+		while (t_map.x < val)
+			mlx_pixel_put(t_map.mlx_ptr, t_map.win_ptr, t_map.x++, t_map.y, color);
+		t_map.yy--;
+		t_map.x = 100;
+		t_map.y = t_map.y + 10;
+	}
+	t_map.y = 100;
+	t_map.x = 100;
+	val = 101 + ((t_map.rows - 1) * 10);
+	t_map.columns = t_map.origspaces + 1;
+	t_map.yy = t_map.rows;
+	while (t_map.columns > 0)
+	{
+		while (t_map.y < val)
+			mlx_pixel_put(t_map.mlx_ptr, t_map.win_ptr, t_map.x, t_map.y++, color);
+		t_map.columns--;
+		t_map.y = 100;
+		t_map.x = t_map.x + 10;
+	}
 	mlx_key_hook(t_map.win_ptr, ft_choose_key, (void*)0);
 	mlx_hook(t_map.win_ptr, 17, 0, ft_exit, (void*)0);
 	mlx_loop(t_map.mlx_ptr);

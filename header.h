@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/11 23:50:24 by ehelmine          #+#    #+#             */
-/*   Updated: 2020/10/19 12:54:06 by ehelmine         ###   ########.fr       */
+/*   Updated: 2020/10/21 17:01:44 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 # define HEADER_H
 
 # define ESC_KEY								53
+# define XK_ESCAPE                        0xff1b
+# define XK_LEFT                          0xff51  /* Move left, left arrow */
+# define XK_UP                            0xff52  /* Move up, up arrow */
+# define XK_RIGHT                         0xff53  /* Move right, right arrow */
+# define XK_DOWN                          0xff54  /* Move down, down arrow */
 # include "mlx.h"
 # include "libft/includes/libft.h"
 # include <stdlib.h>
@@ -23,7 +28,10 @@
 struct			s_map
 {
 	int y;
+	int yy;
 	int x;
+	int xx;
+	int columns;
 	int spaces;
 	int origspaces;
 	char **file;

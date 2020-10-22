@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 11:13:04 by ehelmine          #+#    #+#             */
-/*   Updated: 2020/10/19 13:09:38 by ehelmine         ###   ########.fr       */
+/*   Updated: 2020/10/22 09:10:28 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	ft_get_z()
 		return ;
 	t_map.y = 0;
 	t_map.x = 0;
+	ft_putstr("check\n");
 	while (t_map.file[t_map.y] != NULL)
 	{
 		if (!(t_map.int_arr[yy] = (int*)malloc(sizeof(int) * (t_map.origspaces + 1 + 1))))
@@ -33,17 +34,18 @@ void	ft_get_z()
 		{
 			t_map.file[t_map.y] = t_map.file[t_map.y] + t_map.x;
 			val = ft_atoi(t_map.file[t_map.y]);
-			t_map.int_arr[yy][xx] = val;
-			xx++;
-			while (t_map.file[t_map.y][t_map.x] >= '0' && t_map.file[t_map.y][t_map.x] <= '9' \
-			&& t_map.file[t_map.y][t_map.x] != '\0')
+			ft_putnbr(val);
+			ft_putchar('\n');
+			t_map.int_arr[yy][xx++] = val;
+//			while (t_map.file[t_map.y][t_map.x] >= '0' && t_map.file[t_map.y][t_map.x] <= '9' \
+//			&& t_map.file[t_map.y][t_map.x] != '\0')
+			while (t_map.file[t_map.y][t_map.x] != ' ' && t_map.file[t_map.y][t_map.x] != '\0')
 				t_map.x++;
 		}
-		t_map.int_arr[yy][xx] = '\0';
+		t_map.int_arr[yy++][xx] = '\0';
 		t_map.x = 0;
 		xx = 0;
 		t_map.y++;
-		yy++;
 	}
 }
 
@@ -66,7 +68,7 @@ int		ft_valid_numbers()
 	}
 	return (1);
 }
-
+/*
 int		ft_valid_spaces()
 {
 	t_map.y = 0;
@@ -76,12 +78,14 @@ int		ft_valid_spaces()
 	{
 		while (t_map.file[t_map.y][t_map.x] != '\0')
 		{
-			if (t_map.file[t_map.y][t_map.x] == ' ' && t_map.file[t_map.y][t_map.x - 1] != ' ')
+			if (t_map.file[t_map.y][t_map.x] == ' ' && t_map.file[t_map.y][t_map.x - 1] != ' ' && t_map.x != 0)
 				t_map.spaces++;
 			t_map.x++;
 		}
 		if (t_map.y == 0)
 			t_map.origspaces = t_map.spaces;
+		printf("origspaces: %i\n", t_map.origspaces);
+		printf("spaces %i\n", t_map.spaces);
 		if (t_map.origspaces != t_map.spaces)
 			return (0);
 		t_map.y++;
@@ -90,10 +94,10 @@ int		ft_valid_spaces()
 	}
 	return (1);
 }
-
+*/
 int		ft_valid_file()
 {
-	if (ft_valid_spaces() != 0 && ft_valid_numbers() != 0)
+	if (ft_valid_numbers() != 0)
 	{
 		ft_get_z();
 		return (1);
