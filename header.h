@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/11 23:50:24 by ehelmine          #+#    #+#             */
-/*   Updated: 2020/10/22 12:37:48 by ehelmine         ###   ########.fr       */
+/*   Updated: 2020/10/26 17:17:39 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,9 @@
 # include <fcntl.h>
 # include <unistd.h>
 
-struct			s_map
+typedef struct		s_map
 {
+	int key;
 	int y;
 	int yy;
 	int x;
@@ -46,6 +47,12 @@ struct			s_map
 	int next;
 	int val;
 	int start;
+	void *image;
+	int size_l;
+	int endian;
+	int bpp;
+	int *pic;
+	int last;
 }				t_map;
 
 int		ft_valid_file();
