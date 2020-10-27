@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 15:54:18 by ehelmine          #+#    #+#             */
-/*   Updated: 2020/10/27 13:12:02 by ehelmine         ###   ########.fr       */
+/*   Updated: 2020/10/27 15:55:01 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,31 +26,36 @@ int		ft_exit(void)
 void	ft_isometric_x(t_map *all)
 {
 	int prev_x;
-	int prev_y;
-	int in;
+	int org_x;
+	int org_y;
 
-	in = 0;
-	prev_x = all->x;
-	prev_y = all->y;
-	all->x = (prev_x - prev_y) * cos(0.8);
-	all->y = -(all->int_arr[0][0]) + ((prev_x - prev_y) * sin(0.5));
+	org_x = all->x;
+	org_y = all->y;
+	all->x = (org_x - org_y) * cos(0.8);
 	prev_x = all->next;
-	all->next = (prev_x - prev_y) * cos(0.8);
+	all->next = (prev_x - org_y) * cos(0.8);
+	ft_putnbr(all->in);
+	ft_putchar('\n');
+	all->y = -(all->in) + ((org_x + org_y) * sin(0.5));
 }
 
 void	ft_isometric_y(t_map *all)
 {
 	int prev_x;
 	int prev_y;
-	int in;
+	int org_x;
+	int org_y;
 
-	in = 0;
+	org_x = all->x;
+	org_y = all->y;
 	prev_x = all->x;
 	prev_y = all->y;
-	all->x = (prev_x - prev_y) * cos(0.8);
-	all->y = -(all->int_arr[0][0]) + ((prev_x - prev_y) * sin(0.5));
+	all->y = -(all->in) + ((prev_x + prev_y) * sin(0.5));
 	prev_y = all->next;
-	all->next = -(all->int_arr[0][0]) + (prev_x - prev_y) * sin(0.5);
+	all->next = -(all->in) + ((prev_x + prev_y) * sin(0.5));
+	ft_putnbr(all->in);
+	ft_putchar('\n');
+	all->x = (org_x - org_y) * cos(0.8);
 }
 
 void	ft_print_base_vertical(t_map *all)
@@ -58,13 +63,15 @@ void	ft_print_base_vertical(t_map *all)
 	all->next = all->y + all->box;
 	all->columns = all->first_row_num;
 	all->yy = all->rows - 1;
+	ft_isometric_y(all);
 	while (all->columns > 0)
 	{
 		while (all->yy > 0)
 		{
 			while (all->y < all->next)
-				all->pic[all->x + (all->size_l * all->y++)] = all->color;
+				all->pic[all->x++ + (all->size_l * all->y++)] = all->color;
 			all->next = all->y + all->box;
+			ft_isometric_y(all);
 			all->yy--;
 		}
 		all->yy = all->rows - 1;
@@ -72,6 +79,7 @@ void	ft_print_base_vertical(t_map *all)
 		all->y = all->start;
 		all->x = all->x + all->box;
 		all->next = all->y + all->box;
+		ft_isometric_y(all);
 	}
 }
 
@@ -82,6 +90,7 @@ void	ft_print_base_horizontal(t_map *all)
 	all->next = all->x + all->box;
 	all->columns = all->first_row_num - 1;
 	all->yy = all->rows;
+	ft_isometric_x(all);
 	while (all->yy > 0)
 	{
 		while (all->columns > 0)
@@ -90,8 +99,10 @@ void	ft_print_base_horizontal(t_map *all)
 			{
 				all->pic[all->x + (all->size_l * all->y)] = all->color;
 				all->x++;
+				all->y++;
 			}
 			all->next = all->x + all->box;
+			ft_isometric_x(all);
 			all->columns--;
 		}
 		all->columns = all->first_row_num - 1;
@@ -99,6 +110,7 @@ void	ft_print_base_horizontal(t_map *all)
 		all->x = all->start;
 		all->y = all->y + all->box;
 		all->next = all->x + all->box;
+		ft_isometric_x(all);
 	}
 }
 
@@ -108,11 +120,11 @@ void	ft_values_for_print_vertical(t_map *all)
 	while (all->int_arr[all->rows] != NULL)
 		all->rows++;
 	all->color = 0X00ff00;
-	all->left_corn = 50;
-	all->y = 50;
-	all->x = 50;
+	all->left_corn = 150;
+	all->y = 150;
+	all->x = 150;
 	all->box = 10;
-	all->start = 50;
+	all->start = 150;
 	if (all->first_row_num > 70 || all->rows > 70)
 		all->box = 5;
 	else if (all->first_row_num < 20 || all->rows < 20)
@@ -122,11 +134,11 @@ void	ft_values_for_print_vertical(t_map *all)
 void	ft_values_for_print_horizontal(t_map *all)
 {
 	all->color = 0X00ff00;
-	all->left_corn = 50;
-	all->y = 50;
-	all->x = 50;
+	all->left_corn = 150;
+	all->y = 150;
+	all->x = 150;
 	all->box = 10;
-	all->start = 50;
+	all->start = 150;
 	if (all->first_row_num > 70 || all->rows > 70)
 		all->box = 5;
 	else if (all->first_row_num < 20 || all->rows < 20)
@@ -224,6 +236,7 @@ int		main(int argc, char **argv)
 		all.win_ptr = mlx_new_window(all.mlx_ptr, 1200, 1000, "my fdf");
 		ft_image_control(&all);
 //		all.chara = 'i';
+		all.in = 0;
 		ft_call_draws(&all);
 		mlx_put_image_to_window(all.mlx_ptr, all.win_ptr, all.image, 0, 0);
 		mlx_key_hook(all.win_ptr, ft_choose_key, (void*)0);
