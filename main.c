@@ -6,12 +6,13 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 15:54:18 by ehelmine          #+#    #+#             */
-/*   Updated: 2020/10/26 20:04:50 by ehelmine         ###   ########.fr       */
+/*   Updated: 2020/10/27 13:12:02 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 #include <stdio.h>
+#include <math.h>
 
 //	all.slope = (140-100) / (160-100);
 //	while (all.y + all.slope < 300 && all.x + 1 < 300)
@@ -22,26 +23,53 @@ int		ft_exit(void)
 	exit(0);
 }
 
+void	ft_isometric_x(t_map *all)
+{
+	int prev_x;
+	int prev_y;
+	int in;
+
+	in = 0;
+	prev_x = all->x;
+	prev_y = all->y;
+	all->x = (prev_x - prev_y) * cos(0.8);
+	all->y = -(all->int_arr[0][0]) + ((prev_x - prev_y) * sin(0.5));
+	prev_x = all->next;
+	all->next = (prev_x - prev_y) * cos(0.8);
+}
+
+void	ft_isometric_y(t_map *all)
+{
+	int prev_x;
+	int prev_y;
+	int in;
+
+	in = 0;
+	prev_x = all->x;
+	prev_y = all->y;
+	all->x = (prev_x - prev_y) * cos(0.8);
+	all->y = -(all->int_arr[0][0]) + ((prev_x - prev_y) * sin(0.5));
+	prev_y = all->next;
+	all->next = -(all->int_arr[0][0]) + (prev_x - prev_y) * sin(0.5);
+}
+
 void	ft_print_base_vertical(t_map *all)
 {
 	all->next = all->y + all->box;
-	all->last = 50 + ((all->rows - 1) * all->box);
 	all->columns = all->first_row_num;
-	all->yy = all->rows;
+	all->yy = all->rows - 1;
 	while (all->columns > 0)
 	{
-		while (all->y < all->last)
+		while (all->yy > 0)
 		{
 			while (all->y < all->next)
 				all->pic[all->x + (all->size_l * all->y++)] = all->color;
 			all->next = all->y + all->box;
-			if (all->color == 0xFFFFFF)
-				all->color = 0X00ff00;
-			else
-				all->color = 0xFFFFFF;	
+			all->yy--;
 		}
+		all->yy = all->rows - 1;
 		all->columns--;
-		all->y = 50;
+		all->y = all->start;
 		all->x = all->x + all->box;
 		all->next = all->y + all->box;
 	}
@@ -52,65 +80,64 @@ void	ft_print_base_horizontal(t_map *all)
 	printf("how many columns %i\n", all->first_row_num);
 	printf("how many rows %i\n", all->rows);
 	all->next = all->x + all->box;
-	all->last = 50 + ((all->first_row_num - 1) * all->box);
-	all->columns = all->first_row_num;
+	all->columns = all->first_row_num - 1;
 	all->yy = all->rows;
 	while (all->yy > 0)
 	{
-		while (all->x < all->last)
+		while (all->columns > 0)
 		{
 			while (all->x < all->next)
-				all->pic[all->x++ + (all->size_l * all->y)] = all->color;
+			{
+				all->pic[all->x + (all->size_l * all->y)] = all->color;
+				all->x++;
+			}
 			all->next = all->x + all->box;
-			if (all->color == 0xFFFFFF)
-				all->color = 0X00ff00;
-			else
-				all->color = 0xFFFFFF;	
+			all->columns--;
 		}
+		all->columns = all->first_row_num - 1;
 		all->yy--;
-		all->x = 50;
+		all->x = all->start;
 		all->y = all->y + all->box;
 		all->next = all->x + all->box;
 	}
 }
 
-void	ft_values_for_print_vertical(t_map *all, int start)
+void	ft_values_for_print_vertical(t_map *all)
 {
 	all->rows = 0;
 	while (all->int_arr[all->rows] != NULL)
 		all->rows++;
 	all->color = 0X00ff00;
-	all->y = 50 + start;
-	all->x = 50 + start;
+	all->left_corn = 50;
+	all->y = 50;
+	all->x = 50;
 	all->box = 10;
-	all->start = start;
+	all->start = 50;
 	if (all->first_row_num > 70 || all->rows > 70)
 		all->box = 5;
 	else if (all->first_row_num < 20 || all->rows < 20)
 		all->box = 25;
 }
 
-void	ft_values_for_print_horizontal(t_map *all, int start)
+void	ft_values_for_print_horizontal(t_map *all)
 {
-	all->rows = 0;
-	while (all->int_arr[all->rows] != NULL)
-		all->rows++;
 	all->color = 0X00ff00;
-	all->y = 50 + start;
-	all->x = 50 + start;
+	all->left_corn = 50;
+	all->y = 50;
+	all->x = 50;
 	all->box = 10;
-	all->start = start;
+	all->start = 50;
 	if (all->first_row_num > 70 || all->rows > 70)
 		all->box = 5;
 	else if (all->first_row_num < 20 || all->rows < 20)
 		all->box = 25;
 }
 
-void	ft_call_draws(t_map *all, int start)
+void	ft_call_draws(t_map *all)
 {
-	ft_values_for_print_vertical(all, start);
+	ft_values_for_print_vertical(all);
 	ft_print_base_vertical(all);
-	ft_values_for_print_horizontal(all, start);
+	ft_values_for_print_horizontal(all);
 	ft_print_base_horizontal(all);
 }
 
@@ -123,6 +150,9 @@ void	ft_image_control(t_map *all)
 
 int		ft_choose_key(int key, t_map *all)
 {
+	ft_putnbr(key);
+	if (key == 34)
+		all->chara = 'i';
 	if (key == ESC_KEY || key == XK_ESCAPE)
 		exit(0);
 	if (key == 123 || key == XK_LEFT)
@@ -193,7 +223,8 @@ int		main(int argc, char **argv)
 			return (0);
 		all.win_ptr = mlx_new_window(all.mlx_ptr, 1200, 1000, "my fdf");
 		ft_image_control(&all);
-		ft_call_draws(&all, 0);
+//		all.chara = 'i';
+		ft_call_draws(&all);
 		mlx_put_image_to_window(all.mlx_ptr, all.win_ptr, all.image, 0, 0);
 		mlx_key_hook(all.win_ptr, ft_choose_key, (void*)0);
 		mlx_hook(all.win_ptr, 17, 0, ft_exit, (void*)0);

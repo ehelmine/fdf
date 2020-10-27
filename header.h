@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/11 23:50:24 by ehelmine          #+#    #+#             */
-/*   Updated: 2020/10/26 17:17:39 by ehelmine         ###   ########.fr       */
+/*   Updated: 2020/10/27 10:39:24 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ typedef struct		s_map
 	int bpp;
 	int *pic;
 	int last;
+	int left_corn;
+	char chara;
 }				t_map;
 
 int		ft_valid_file();
