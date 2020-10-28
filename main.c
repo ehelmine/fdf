@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 15:54:18 by ehelmine          #+#    #+#             */
-/*   Updated: 2020/10/28 10:45:15 by ehelmine         ###   ########.fr       */
+/*   Updated: 2020/10/28 17:31:44 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,11 +124,11 @@ void	ft_values_for_print_vertical(t_map *all)
 	all->x = 150;
 	all->box = 10;
 	all->start = 150;
-	if (all->first_row_num > 70 || all->rows > 70)
+/*	if (all->first_row_num > 70 || all->rows > 70)
 		all->box = 5;
 	else if (all->first_row_num < 20 || all->rows < 20)
 		all->box = 25;
-}
+*/}
 
 void	ft_values_for_print_horizontal(t_map *all)
 {
@@ -138,11 +138,11 @@ void	ft_values_for_print_horizontal(t_map *all)
 	all->x = 150;
 	all->box = 10;
 	all->start = 150;
-	if (all->first_row_num > 70 || all->rows > 70)
+/*	if (all->first_row_num > 70 || all->rows > 70)
 		all->box = 5;
 	else if (all->first_row_num < 20 || all->rows < 20)
 		all->box = 25;
-}
+*/}
 
 void	ft_call_draws(t_map *all)
 {
@@ -162,16 +162,31 @@ void	ft_image_control(t_map *all)
 int		ft_choose_key(int key, t_map *all)
 {
 	ft_putnbr(key);
-	if (key == ISOMETRIC)
-		all->chara = 'i';
-	if (key == ZOOM_IN)
-		all->box += 10;
-	if (key == ZOOM_OUT)
+	ft_putendl("check");
+	if (key == ZOOM_IN || key == 34)
+	{
+		ft_putendl("haha");
+	//	mlx_destroy_image(all->mlx_ptr, all->image);
+		ft_putendl("hohe");
+		ft_bzero(all->pic, sizeof(all->pic));
+		ft_putendl("*");
+		ft_image_control(all);
+		ft_values_for_print_vertical(all);
+		all->box += 5;
+		ft_print_base_vertical(all);
+		ft_values_for_print_horizontal(all);
+		all->box += 5;
+		ft_print_base_horizontal(all);
+		mlx_put_image_to_window(all->mlx_ptr, all->win_ptr, all->image, 0, 0);
+		mlx_key_hook(all->win_ptr, ft_choose_key, (void*)0);
+		mlx_hook(all->win_ptr, 17, 0, ft_exit, (void*)0);
+		mlx_loop(all->mlx_ptr);
+	}
+	if (key == ZOOM_OUT || key == 31)
 		all->box -= 10;
 	if (key == ESC_KEY || key == XK_ESCAPE)
 		exit(0);
 	if (key == MOVE_LEFT || key == XK_LEFT)
-		all->box = 3;
 		exit(0);
 	if (key == MOVE_RIGHT || key == XK_RIGHT)
 		exit(0);
@@ -181,7 +196,7 @@ int		ft_choose_key(int key, t_map *all)
 		exit(0);
 	ft_putnbr(key);
 	ft_putchar(' ');
-	return (0);
+	return (1);
 }
 
 /*
