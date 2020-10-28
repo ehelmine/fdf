@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/11 23:50:24 by ehelmine          #+#    #+#             */
-/*   Updated: 2020/10/27 15:31:17 by ehelmine         ###   ########.fr       */
+/*   Updated: 2020/10/28 10:45:21 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,13 @@
 # define HEADER_H
 
 # define ESC_KEY								53
+# define ZOOM_IN								105
+# define ZOOM_OUT								111
+# define MOVE_LEFT								123
+# define MOVE_RIGHT								124
+# define MOVE_UP								126
+# define MOVE_DOWN								125
+# define ISOMETRIC								34
 # define XK_ESCAPE                        0xff1b
 # define XK_LEFT                          0xff51  /* Move left, left arrow */
 # define XK_UP                            0xff52  /* Move up, up arrow */

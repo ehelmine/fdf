@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 15:54:18 by ehelmine          #+#    #+#             */
-/*   Updated: 2020/10/27 15:55:01 by ehelmine         ###   ########.fr       */
+/*   Updated: 2020/10/28 10:45:15 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,15 +63,15 @@ void	ft_print_base_vertical(t_map *all)
 	all->next = all->y + all->box;
 	all->columns = all->first_row_num;
 	all->yy = all->rows - 1;
-	ft_isometric_y(all);
+//	ft_isometric_y(all);
 	while (all->columns > 0)
 	{
 		while (all->yy > 0)
 		{
 			while (all->y < all->next)
-				all->pic[all->x++ + (all->size_l * all->y++)] = all->color;
+				all->pic[all->x + (all->size_l * all->y++)] = all->color;
 			all->next = all->y + all->box;
-			ft_isometric_y(all);
+//			ft_isometric_y(all);
 			all->yy--;
 		}
 		all->yy = all->rows - 1;
@@ -79,7 +79,7 @@ void	ft_print_base_vertical(t_map *all)
 		all->y = all->start;
 		all->x = all->x + all->box;
 		all->next = all->y + all->box;
-		ft_isometric_y(all);
+	//	ft_isometric_y(all);
 	}
 }
 
@@ -90,7 +90,7 @@ void	ft_print_base_horizontal(t_map *all)
 	all->next = all->x + all->box;
 	all->columns = all->first_row_num - 1;
 	all->yy = all->rows;
-	ft_isometric_x(all);
+//	ft_isometric_x(all);
 	while (all->yy > 0)
 	{
 		while (all->columns > 0)
@@ -99,10 +99,9 @@ void	ft_print_base_horizontal(t_map *all)
 			{
 				all->pic[all->x + (all->size_l * all->y)] = all->color;
 				all->x++;
-				all->y++;
 			}
 			all->next = all->x + all->box;
-			ft_isometric_x(all);
+//			ft_isometric_x(all);
 			all->columns--;
 		}
 		all->columns = all->first_row_num - 1;
@@ -110,7 +109,7 @@ void	ft_print_base_horizontal(t_map *all)
 		all->x = all->start;
 		all->y = all->y + all->box;
 		all->next = all->x + all->box;
-		ft_isometric_x(all);
+//		ft_isometric_x(all);
 	}
 }
 
@@ -163,18 +162,22 @@ void	ft_image_control(t_map *all)
 int		ft_choose_key(int key, t_map *all)
 {
 	ft_putnbr(key);
-	if (key == 34)
+	if (key == ISOMETRIC)
 		all->chara = 'i';
+	if (key == ZOOM_IN)
+		all->box += 10;
+	if (key == ZOOM_OUT)
+		all->box -= 10;
 	if (key == ESC_KEY || key == XK_ESCAPE)
 		exit(0);
-	if (key == 123 || key == XK_LEFT)
-		all->x = 3;
+	if (key == MOVE_LEFT || key == XK_LEFT)
+		all->box = 3;
 		exit(0);
-	if (key == 124 || key == XK_RIGHT)
+	if (key == MOVE_RIGHT || key == XK_RIGHT)
 		exit(0);
-	if (key == 126 || key == XK_UP)
+	if (key == MOVE_UP || key == XK_UP)
 		exit(0);
-	if (key == 125 || key == XK_DOWN)
+	if (key == MOVE_DOWN || key == XK_DOWN)
 		exit(0);
 	ft_putnbr(key);
 	ft_putchar(' ');
