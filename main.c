@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 15:54:18 by ehelmine          #+#    #+#             */
-/*   Updated: 2020/10/28 17:31:44 by ehelmine         ###   ########.fr       */
+/*   Updated: 2020/10/29 11:21:16 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ void	ft_isometric_x(t_map *all)
 	org_x = all->x;
 	org_y = all->y;
 	all->x = (org_x - org_y) * cos(0.8);
-	prev_x = all->next;
-	all->next = (prev_x - org_y) * cos(0.8);
+	prev_x = all->next_x;
+	all->next_x = (prev_x - org_y) * cos(0.8);
 	ft_putnbr(all->in);
 	ft_putchar('\n');
-	all->y = -(all->in) + ((org_x + org_y) * sin(0.5));
+	all->y = -(3) + ((org_x + org_y) * sin(0.5));
 }
 
 void	ft_isometric_y(t_map *all)
@@ -50,9 +50,9 @@ void	ft_isometric_y(t_map *all)
 	org_y = all->y;
 	prev_x = all->x;
 	prev_y = all->y;
-	all->y = -(all->in) + ((prev_x + prev_y) * sin(0.5));
-	prev_y = all->next;
-	all->next = -(all->in) + ((prev_x + prev_y) * sin(0.5));
+	all->y = -(2) + ((prev_x + prev_y) * sin(0.5));
+	prev_y = all->next_y;
+	all->next_y = -(2) + ((prev_x + prev_y) * sin(0.5));
 	ft_putnbr(all->in);
 	ft_putchar('\n');
 	all->x = (org_x - org_y) * cos(0.8);
@@ -60,7 +60,7 @@ void	ft_isometric_y(t_map *all)
 
 void	ft_print_base_vertical(t_map *all)
 {
-	all->next = all->y + all->box;
+	all->next_y = all->y + all->box;
 	all->columns = all->first_row_num;
 	all->yy = all->rows - 1;
 //	ft_isometric_y(all);
@@ -68,9 +68,9 @@ void	ft_print_base_vertical(t_map *all)
 	{
 		while (all->yy > 0)
 		{
-			while (all->y < all->next)
+			while (all->y < all->next_y)
 				all->pic[all->x + (all->size_l * all->y++)] = all->color;
-			all->next = all->y + all->box;
+			all->next_y = all->y + all->box;
 //			ft_isometric_y(all);
 			all->yy--;
 		}
@@ -78,7 +78,7 @@ void	ft_print_base_vertical(t_map *all)
 		all->columns--;
 		all->y = all->start;
 		all->x = all->x + all->box;
-		all->next = all->y + all->box;
+		all->next_y = all->y + all->box;
 	//	ft_isometric_y(all);
 	}
 }
@@ -87,7 +87,7 @@ void	ft_print_base_horizontal(t_map *all)
 {
 	printf("how many columns %i\n", all->first_row_num);
 	printf("how many rows %i\n", all->rows);
-	all->next = all->x + all->box;
+	all->next_x = all->x + all->box;
 	all->columns = all->first_row_num - 1;
 	all->yy = all->rows;
 //	ft_isometric_x(all);
@@ -95,12 +95,12 @@ void	ft_print_base_horizontal(t_map *all)
 	{
 		while (all->columns > 0)
 		{
-			while (all->x < all->next)
+			while (all->x < all->next_x)
 			{
 				all->pic[all->x + (all->size_l * all->y)] = all->color;
 				all->x++;
 			}
-			all->next = all->x + all->box;
+			all->next_x = all->x + all->box;
 //			ft_isometric_x(all);
 			all->columns--;
 		}
@@ -108,53 +108,38 @@ void	ft_print_base_horizontal(t_map *all)
 		all->yy--;
 		all->x = all->start;
 		all->y = all->y + all->box;
-		all->next = all->x + all->box;
+		all->next_x = all->x + all->box;
 //		ft_isometric_x(all);
 	}
 }
 
-void	ft_values_for_print_vertical(t_map *all)
+void	ft_values_for_print(t_map *all)
 {
 	all->rows = 0;
 	while (all->int_arr[all->rows] != NULL)
 		all->rows++;
 	all->color = 0X00ff00;
-	all->left_corn = 150;
 	all->y = 150;
 	all->x = 150;
-	all->box = 10;
+	all->box = 10 + all->box_val;
 	all->start = 150;
-/*	if (all->first_row_num > 70 || all->rows > 70)
+	if (all->first_row_num > 70 || all->rows > 70)
 		all->box = 5;
 	else if (all->first_row_num < 20 || all->rows < 20)
 		all->box = 25;
-*/}
-
-void	ft_values_for_print_horizontal(t_map *all)
-{
-	all->color = 0X00ff00;
-	all->left_corn = 150;
-	all->y = 150;
-	all->x = 150;
-	all->box = 10;
-	all->start = 150;
-/*	if (all->first_row_num > 70 || all->rows > 70)
-		all->box = 5;
-	else if (all->first_row_num < 20 || all->rows < 20)
-		all->box = 25;
-*/}
+}
 
 void	ft_call_draws(t_map *all)
 {
-	ft_values_for_print_vertical(all);
+	ft_values_for_print(all);
 	ft_print_base_vertical(all);
-	ft_values_for_print_horizontal(all);
+	ft_values_for_print(all);
 	ft_print_base_horizontal(all);
 }
 
 void	ft_image_control(t_map *all)
 {
-	all->image = mlx_new_image(all->mlx_ptr, 1200, 1000);
+	all->image = mlx_new_image(all->mlx_ptr, 750, 500);
 	all->pic = (int*)mlx_get_data_addr(all->image, &all->bpp, &all->size_l, &all->endian);
 	all->size_l /= 4;
 }
@@ -166,16 +151,15 @@ int		ft_choose_key(int key, t_map *all)
 	if (key == ZOOM_IN || key == 34)
 	{
 		ft_putendl("haha");
-	//	mlx_destroy_image(all->mlx_ptr, all->image);
+		mlx_destroy_image(all->mlx_ptr, all->image);
 		ft_putendl("hohe");
 		ft_bzero(all->pic, sizeof(all->pic));
 		ft_putendl("*");
 		ft_image_control(all);
-		ft_values_for_print_vertical(all);
-		all->box += 5;
+		all->box_val += 5;
+		ft_values_for_print(all);
 		ft_print_base_vertical(all);
-		ft_values_for_print_horizontal(all);
-		all->box += 5;
+		ft_values_for_print(all);
 		ft_print_base_horizontal(all);
 		mlx_put_image_to_window(all->mlx_ptr, all->win_ptr, all->image, 0, 0);
 		mlx_key_hook(all->win_ptr, ft_choose_key, (void*)0);
@@ -251,10 +235,10 @@ int		main(int argc, char **argv)
 		all.mlx_ptr = mlx_init();
 		if (all.mlx_ptr == NULL)
 			return (0);
-		all.win_ptr = mlx_new_window(all.mlx_ptr, 1200, 1000, "my fdf");
+		all.win_ptr = mlx_new_window(all.mlx_ptr, 750, 500, "my fdf");
 		ft_image_control(&all);
 //		all.chara = 'i';
-		all.in = 0;
+		all.box_val = 0;
 		ft_call_draws(&all);
 		mlx_put_image_to_window(all.mlx_ptr, all.win_ptr, all.image, 0, 0);
 		mlx_key_hook(all.win_ptr, ft_choose_key, (void*)0);

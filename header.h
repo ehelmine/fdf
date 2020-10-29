@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/11 23:50:24 by ehelmine          #+#    #+#             */
-/*   Updated: 2020/10/28 10:45:21 by ehelmine         ###   ########.fr       */
+/*   Updated: 2020/10/29 11:07:21 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ typedef struct		s_map
 	int slope;
 	int box;
 	int color;
-	int next;
+	int next_x;
+	int next_y;
 	int val;
 	int start;
 	void *image;
@@ -63,6 +64,7 @@ typedef struct		s_map
 	int left_corn;
 	char chara;
 	int in;
+	int box_val;
 }				t_map;
 
 int		ft_valid_file();
