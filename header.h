@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/11 23:50:24 by ehelmine          #+#    #+#             */
-/*   Updated: 2020/10/29 11:07:21 by ehelmine         ###   ########.fr       */
+/*   Updated: 2020/10/29 13:44:41 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # define MOVE_RIGHT								124
 # define MOVE_UP								126
 # define MOVE_DOWN								125
-# define ISOMETRIC								34
+//# define ISOMETRIC								34
 # define XK_ESCAPE                        0xff1b
 # define XK_LEFT                          0xff51  /* Move left, left arrow */
 # define XK_UP                            0xff52  /* Move up, up arrow */
@@ -34,6 +34,8 @@
 
 typedef struct		s_map
 {
+	float map_y;
+	float map_x;
 	int key;
 	int y;
 	int yy;
@@ -65,8 +67,8 @@ typedef struct		s_map
 	char chara;
 	int in;
 	int box_val;
-}				t_map;
+}					t_map;
 
-int		ft_valid_file();
+int		ft_valid_file(t_map *all);
 
 #endif
