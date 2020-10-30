@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 15:54:18 by ehelmine          #+#    #+#             */
-/*   Updated: 2020/10/29 14:20:10 by ehelmine         ###   ########.fr       */
+/*   Updated: 2020/10/30 09:58:22 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	ft_print_base_vertical(t_map *all)
 		}
 		all->yy = all->rows - 1;
 		all->columns--;
-		all->y = 0;
+		all->y = all->change_y;
 		all->x = all->x + all->box;
 		all->next_y = all->y + all->box;
 //		ft_isometric_y(all);
@@ -103,7 +103,7 @@ void	ft_print_base_horizontal(t_map *all)
 		}
 		all->columns = all->first_row_num - 1;
 		all->yy--;
-		all->x = 0;
+		all->x = all->change_x;
 		all->y = all->y + all->box;
 		all->next_x = all->x + all->box;
 //		ft_isometric_x(all);
@@ -115,9 +115,10 @@ void	ft_values_for_print(t_map *all)
 	all->rows = 0;
 	while (all->int_arr[all->rows] != NULL)
 		all->rows++;
-	all->color = 0X00ff00;
-	all->y = 0;
-	all->x = 0;
+	if (all->color == 0X00ff00)
+		all->color = 0X00ff00;
+	all->y = 0 + all->change_y;
+	all->x = 0 + all->change_x;
 	all->box = 5 + all->box_val;
 	all->next_x = all->x + all->box;
 	all->next_y = all->y;
@@ -129,6 +130,8 @@ void	ft_call_draws(t_map *all)
 	ft_print_base_vertical(all);
 	ft_values_for_print(all);
 	ft_print_base_horizontal(all);
+	mlx_put_image_to_window(all->mlx_ptr, all->win_ptr, all->image, 0, 0);
+
 }
 
 void	ft_image_control(t_map *all)
@@ -146,22 +149,14 @@ int		ft_choose_key(int key, t_map *all)
 		ft_memset(all->pic, 0, all->size_l);
 		ft_image_control(all);
 		all->box_val += 1;
-		ft_values_for_print(all);
-		ft_print_base_vertical(all);
-		ft_values_for_print(all);
-		ft_print_base_horizontal(all);
-		mlx_put_image_to_window(all->mlx_ptr, all->win_ptr, all->image, 0, 0);
+		ft_call_draws(all);
 	}
 	if ((key == ZOOM_OUT || key == 31) && all->box > 2)
 	{
 		ft_memset(all->pic, 0, all->size_l);
 		ft_image_control(all);
 		all->box_val -= 1;
-		ft_values_for_print(all);
-		ft_print_base_vertical(all);
-		ft_values_for_print(all);
-		ft_print_base_horizontal(all);
-		mlx_put_image_to_window(all->mlx_ptr, all->win_ptr, all->image, 0, 0);
+		ft_call_draws(all);
 	}
 	if (key == ESC_KEY || key == XK_ESCAPE)
 	{
@@ -169,13 +164,43 @@ int		ft_choose_key(int key, t_map *all)
 		exit(0);
 	}
 	if (key == MOVE_LEFT || key == XK_LEFT)
-		exit(0);
+	{
+		ft_memset(all->pic, 0, all->size_l);
+		ft_image_control(all);
+		all->change_x -= 3;
+		ft_call_draws(all);
+	}
 	if (key == MOVE_RIGHT || key == XK_RIGHT)
-		exit(0);
+	{
+		ft_memset(all->pic, 0, all->size_l);
+		ft_image_control(all);
+		all->change_x += 3;
+		ft_call_draws(all);
+	}
 	if (key == MOVE_UP || key == XK_UP)
-		exit(0);
+	{
+		ft_memset(all->pic, 0, all->size_l);
+		ft_image_control(all);
+		all->change_y -= 3;
+		ft_call_draws(all);
+	}
 	if (key == MOVE_DOWN || key == XK_DOWN)
-		exit(0);
+	{
+		ft_memset(all->pic, 0, all->size_l);
+		ft_image_control(all);
+		all->change_y += 3;
+		ft_call_draws(all);
+	}
+	if (key == 99)
+	{
+		ft_memset(all->pic, 0, all->size_l);
+		ft_image_control(all);
+		if (all->color == 0X00ff00)
+			all->color = 0xFF0000;
+		else
+			all->color = 0X00ff00;
+		ft_call_draws(all);
+	}
 	ft_putchar(' ');
 	return (1);
 }
@@ -236,8 +261,9 @@ int		main(int argc, char **argv)
 		ft_image_control(&all);
 		all.chara = 'i';
 		all.box_val = 0;
+		all.color = 0X00ff00;
 		ft_call_draws(&all);
-		mlx_put_image_to_window(all.mlx_ptr, all.win_ptr, all.image, 0, 0);
+	//	mlx_put_image_to_window(all.mlx_ptr, all.win_ptr, all.image, 0, 0);
 		mlx_key_hook(all.win_ptr, &ft_choose_key, &all);
 		mlx_hook(all.win_ptr, 17, 0, ft_exit, (void*)0);
 		mlx_loop(all.mlx_ptr);

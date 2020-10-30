@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/11 23:50:24 by ehelmine          #+#    #+#             */
-/*   Updated: 2020/10/29 13:44:41 by ehelmine         ###   ########.fr       */
+/*   Updated: 2020/10/30 09:30:30 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ typedef struct		s_map
 	char chara;
 	int in;
 	int box_val;
+	int change_y;
+	int change_x;
 }					t_map;
 
 int		ft_valid_file(t_map *all);
