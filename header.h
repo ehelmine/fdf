@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/11 23:50:24 by ehelmine          #+#    #+#             */
-/*   Updated: 2020/10/30 12:17:52 by ehelmine         ###   ########.fr       */
+/*   Updated: 2020/10/30 12:32:51 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,5 +88,6 @@ void	ft_image_control(t_map *all);
 void	ft_call_draws(t_map *all);
 void	ft_values_for_print(t_map *all);
 int		ft_exit(void);
+void	ft_read_file(t_map *all, char *str);
 
 #endif
