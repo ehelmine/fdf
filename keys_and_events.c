@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 12:15:07 by ehelmine          #+#    #+#             */
-/*   Updated: 2020/10/30 12:16:28 by ehelmine         ###   ########.fr       */
+/*   Updated: 2020/10/30 14:25:38 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,28 +50,28 @@ int		ft_choose_key(int key, t_map *all)
 	{
 		ft_memset(all->pic, 0, all->size_l);
 		ft_image_control(all);
-		all->change_x -= 3;
+		all->change_x -= 10;
 		ft_call_draws(all);
 	}
 	if (key == MOVE_RIGHT || key == XK_RIGHT)
 	{
 		ft_memset(all->pic, 0, all->size_l);
 		ft_image_control(all);
-		all->change_x += 3;
+		all->change_x += 10;
 		ft_call_draws(all);
 	}
 	if (key == MOVE_UP || key == XK_UP)
 	{
 		ft_memset(all->pic, 0, all->size_l);
 		ft_image_control(all);
-		all->change_y -= 3;
+		all->change_y -= 10;
 		ft_call_draws(all);
 	}
 	if (key == MOVE_DOWN || key == XK_DOWN)
 	{
 		ft_memset(all->pic, 0, all->size_l);
 		ft_image_control(all);
-		all->change_y += 3;
+		all->change_y += 10;
 		ft_call_draws(all);
 	}
 	if (key == 99 || key == 8)

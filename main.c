@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 15:54:18 by ehelmine          #+#    #+#             */
-/*   Updated: 2020/10/30 12:44:43 by ehelmine         ###   ########.fr       */
+/*   Updated: 2020/10/30 14:31:54 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	ft_values_for_print(t_map *all)
 	all->y = 0 + all->change_y;
 	all->x = 0 + all->change_x;
 	all->box = 5 + all->box_val;
+	printf("box %i\n", all->box);
 	all->next_x = all->x + all->box;
 	all->next_y = all->y;
 }
@@ -70,8 +71,6 @@ int		main(int argc, char **argv)
 		if (all.mlx_ptr == NULL)
 			return (0);
 		all.win_ptr = mlx_new_window(all.mlx_ptr, 1500, 1200, "my fdf");
-		all.box_val = 0;
-		all.color = GREEN;
 		ft_image_control(&all);
 		ft_call_draws(&all);
 		mlx_key_hook(all.win_ptr, &ft_choose_key, &all);

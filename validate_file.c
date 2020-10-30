@@ -6,15 +6,36 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 11:13:04 by ehelmine          #+#    #+#             */
-/*   Updated: 2020/10/30 12:50:45 by ehelmine         ###   ########.fr       */
+/*   Updated: 2020/10/30 14:33:58 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 #include <stdio.h>
 
+char	*skip_character(char *str, char c)
+{
+	int i;
+	char *ptr;
+
+	ptr = str;
+	i = 0;
+	while (str[i] != '\0')
+	{
+		if (str[i] != c && str[i - 1] == c)
+			return (str + i);
+		else
+			i++;
+	}
+	return (ptr);
+}
+
 void	ft_get_z(t_map *all)
 {
+	int ii;
+	
+	ii = 1;
+	printf("here\n");
 	while (all->file[all->y] != NULL)
 	{
 		if (!(all->int_arr[all->yy] = (int*)malloc(sizeof(int) * (1000))))
@@ -33,8 +54,12 @@ void	ft_get_z(t_map *all)
 			all->file[all->y][all->x] == ' ')
 				all->x++;
 			all->file[all->y] = all->file[all->y] + all->x;
+//			all->file[all->y] = skip_character(all->file[all->y], ' ');
 			all->x = 0;
 		}
+		printf("first row num %i in %i\n", all->first_row_num, ii);
+		printf("number in this row %i\n", all->numbers_in_row);
+		ii++;
 		if (all->first_row_num != all->numbers_in_row)
 			exit(0);
 		all->numbers_in_row = 0;
@@ -84,6 +109,10 @@ int		ft_valid_numbers(t_map *all)
 	}
 	return (1);
 }
+/*	Check if it is a valid file, then declare some variables, and then get all z
+**	coordinates to int array. Then declare here some other things before going back
+**	to create the image.
+*/
 
 int		ft_valid_file(t_map *all)
 {
@@ -91,6 +120,11 @@ int		ft_valid_file(t_map *all)
 	{
 		ft_before_get_z(all);
 		ft_get_z(all);
+		if (all->first_row_num > 40)
+			all->box_val = 0;
+		else
+			all->box_val = 15;
+		all->color = GREEN;
 		return (1);
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 12:12:04 by ehelmine          #+#    #+#             */
-/*   Updated: 2020/10/30 12:41:18 by ehelmine         ###   ########.fr       */
+/*   Updated: 2020/10/30 14:30:05 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	ft_print_base_vertical(t_map *all)
 	{
 		while (all->yy > 0)
 		{
-			if (all->next_y > 1200 || all->x > 1500)
+			if (all->next_y > 1200 || all->x > 1500 || all->y > 1200)
 				break ;
 			while (all->y < all->next_y)
 				all->pic[all->x + (all->size_l * all->y++)] = all->color;
@@ -82,7 +82,7 @@ void	ft_print_base_horizontal(t_map *all)
 	{
 		while (all->columns > 0)
 		{
-			if (all->next_x > 1500 || all->y > 1200)
+			if (all->next_x > 1500 || all->y > 1200 || all->x > 1500)
 				break ;
 			while (all->x < all->next_x)
 				all->pic[all->x++ + (all->size_l * all->y)] = all->color;
