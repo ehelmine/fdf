@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/11 23:50:24 by ehelmine          #+#    #+#             */
-/*   Updated: 2020/10/30 09:30:30 by ehelmine         ###   ########.fr       */
+/*   Updated: 2020/10/30 12:17:52 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,18 @@
 # define XK_UP                            0xff52  /* Move up, up arrow */
 # define XK_RIGHT                         0xff53  /* Move right, right arrow */
 # define XK_DOWN                          0xff54  /* Move down, down arrow */
+# define GREEN							0X00ff00
+# define BLUE							0x00FFFF
+# define RED							0xFF0000
+# define YELLOW							0xFFFF00
 # include "mlx.h"
 # include "libft/includes/libft.h"
 # include <stdlib.h>
 # include <fcntl.h>
 # include <unistd.h>
+# include <math.h>
+# include <mlx.h>
+# include <stdio.h>
 
 typedef struct		s_map
 {
@@ -72,5 +79,14 @@ typedef struct		s_map
 }					t_map;
 
 int		ft_valid_file(t_map *all);
+void	ft_print_base_horizontal(t_map *all);
+void	ft_print_base_vertical(t_map *all);
+void	ft_isometric_y(t_map *all);
+void	ft_isometric_x(t_map *all);
+int		ft_choose_key(int key, t_map *all);
+void	ft_image_control(t_map *all);
+void	ft_call_draws(t_map *all);
+void	ft_values_for_print(t_map *all);
+int		ft_exit(void);
 
 #endif
