@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 15:54:18 by ehelmine          #+#    #+#             */
-/*   Updated: 2020/10/30 14:31:54 by ehelmine         ###   ########.fr       */
+/*   Updated: 2020/10/30 16:46:28 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		ft_exit(void)
 	exit(0);
 }
 
-void	ft_values_for_print(t_map *all)
+void	ft_values_for_print_h(t_map *all)
 {
 	all->rows = 0;
 	while (all->int_arr[all->rows] != NULL)
@@ -29,16 +29,27 @@ void	ft_values_for_print(t_map *all)
 	all->y = 0 + all->change_y;
 	all->x = 0 + all->change_x;
 	all->box = 5 + all->box_val;
-	printf("box %i\n", all->box);
-	all->next_x = all->x + all->box;
+	all->next_x = all->x + all->box;;
 	all->next_y = all->y;
+}
+
+void	ft_values_for_print_v(t_map *all)
+{
+	all->rows = 0;
+	while (all->int_arr[all->rows] != NULL)
+		all->rows++;
+	all->y = 0 + all->change_y;
+	all->x = 0 + all->change_x;
+	all->box = 5 + all->box_val;
+	all->next_x = all->x;
+	all->next_y = all->y + all->box;
 }
 
 void	ft_call_draws(t_map *all)
 {
-	ft_values_for_print(all);
+	ft_values_for_print_v(all);
 	ft_print_base_vertical(all);
-	ft_values_for_print(all);
+	ft_values_for_print_h(all);
 	ft_print_base_horizontal(all);
 	mlx_put_image_to_window(all->mlx_ptr, all->win_ptr, all->image, 0, 0);
 	mlx_key_hook(all->win_ptr, &ft_choose_key, all);

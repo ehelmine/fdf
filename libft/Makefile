@@ -6,7 +6,7 @@
 #    By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/06/09 13:01:03 by ehelmine          #+#    #+#              #
-#    Updated: 2020/10/12 12:07:38 by ehelmine         ###   ########.fr        #
+#    Updated: 2020/10/30 15:41:25 by ehelmine         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,14 +32,14 @@ HEADER = libft.h
 all: $(NAME)
 
 $(NAME):
-		gcc -Wall -Wextra -Werror -c -I includes $(SRCS)
-		ar rc $(NAME) $(OBJS)
-		ranlib $(NAME)
+		@gcc -Wall -Wextra -Werror -c -I includes $(SRCS)
+		@ar rc $(NAME) $(OBJS)
+		@ranlib $(NAME)
 
 clean:
-		rm -f $(OBJS) 
+		@rm -f $(OBJS) 
 
 fclean: clean
-		rm -f $(NAME)
+		@rm -f $(NAME)
 
 re: fclean all
