@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 12:12:04 by ehelmine          #+#    #+#             */
-/*   Updated: 2020/10/30 16:53:10 by ehelmine         ###   ########.fr       */
+/*   Updated: 2020/11/02 10:37:36 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,9 +103,9 @@ void	ft_print_base_vertical(t_map *all)
 	{
 		while (all->yy > 0)
 		{
-			if (all->next_y > 1200 || all->x > 1500 || all->y > 1200)
+			if (all->next_y > 699 || all->x > 999 || all->y > 699)
 				break ;
-			while (all->y < all->next_y)
+			while (all->y < all->next_y && all->y < 700)
 				all->pic[all->x + (all->size_l * all->y++)] = all->color;
 			all->next_y = all->y + all->box;
 //			ft_isometric_y(all);
@@ -113,6 +113,7 @@ void	ft_print_base_vertical(t_map *all)
 		}
 		all->yy = all->rows - 1;
 		all->columns--;
+		printf("\nlast y %i\n", all->y);
 		all->y = all->change_y;
 		all->x = all->x + all->box;
 		all->next_y = all->y + all->box;
@@ -132,18 +133,20 @@ void	ft_print_base_horizontal(t_map *all)
 	{
 		while (all->columns > 0)
 		{
-			if (all->next_x > 1500 || all->y > 1200 || all->x > 1500)
+			if (all->next_x > 999 || all->y > 699 || all->x > 999)
 				break ;
-			while (all->x < all->next_x)
+			while (all->x < all->next_x && all->x < 1000)
 				all->pic[all->x++ + (all->size_l * all->y)] = all->color;
 			all->columns--;
 			all->next_x = all->x + all->box;
 		}
 		all->columns = all->first_row_num - 1;
 		all->yy--;
+//		printf("\nlast x %i\n", all->x);
 		all->x = all->change_x;
 		all->y = all->y + all->box;
 		all->next_x = all->x + all->box;
 //		ft_isometric_x(all);
 	}
+	printf("\nlast place %i\n", all->x + (all->size_l * all->y));
 }

@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 15:54:18 by ehelmine          #+#    #+#             */
-/*   Updated: 2020/10/30 16:46:28 by ehelmine         ###   ########.fr       */
+/*   Updated: 2020/11/02 10:26:32 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	ft_call_draws(t_map *all)
 
 void	ft_image_control(t_map *all)
 {
-	all->image = mlx_new_image(all->mlx_ptr, 1500, 1200);
+	all->image = mlx_new_image(all->mlx_ptr, 1000, 700);
 	all->pic = (int*)mlx_get_data_addr(all->image, &all->bpp, \
 	&all->size_l, &all->endian);
 	all->size_l /= 4;
@@ -81,7 +81,7 @@ int		main(int argc, char **argv)
 		all.mlx_ptr = mlx_init();
 		if (all.mlx_ptr == NULL)
 			return (0);
-		all.win_ptr = mlx_new_window(all.mlx_ptr, 1500, 1200, "my fdf");
+		all.win_ptr = mlx_new_window(all.mlx_ptr, 1000, 700, "my fdf");
 		ft_image_control(&all);
 		ft_call_draws(&all);
 		mlx_key_hook(all.win_ptr, &ft_choose_key, &all);
