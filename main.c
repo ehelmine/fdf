@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 15:54:18 by ehelmine          #+#    #+#             */
-/*   Updated: 2020/11/03 09:34:12 by ehelmine         ###   ########.fr       */
+/*   Updated: 2020/11/03 09:48:59 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	ft_values_for_print_v(t_map *all)
 		all->rows++;
 	all->y = 0 + all->change_y;
 	all->x = 0 + all->change_x;
-	all->box = 50 + all->box_val;
+	all->box = 5 + all->box_val;
 	all->next_x = all->x;
 	all->next_y = all->y + all->box;
 }

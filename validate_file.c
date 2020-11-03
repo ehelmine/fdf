@@ -6,66 +6,54 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 11:13:04 by ehelmine          #+#    #+#             */
-/*   Updated: 2020/10/30 14:46:47 by ehelmine         ###   ########.fr       */
+/*   Updated: 2020/11/03 12:09:42 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 #include <stdio.h>
 
-char	*skip_character(char *str, char c)
+void	ft_get_z_2(int *str, char *ptr, t_map *all)
 {
-	int i;
-	char *ptr;
+	int x;
+	int y;
 
-	ptr = str;
-	i = 0;
-	while (str[i] != '\0')
+	y = 0;
+	x = 0;
+	while (ptr[x] != '\0')
 	{
-		if (str[i] != c && str[i - 1] == c)
-			return (str + i);
-		else
-			i++;
+		while (ptr[x] == ' ')
+			x++;
+		ptr = ptr + x;
+		x = 0;
+		str[y] = ft_atoi(ptr);
+		all->numbers_in_row++;
+		x++;
+		y++;
 	}
-	return (ptr);
+	if (all->numbers_in_row != all->first_row_num)
+		exit(0);
+	all->numbers_in_row = 0;	
 }
 
 void	ft_get_z(t_map *all)
 {
-	int ii;
-	
-	ii = 1;
-	printf("here\n");
+	while(all->file[all->y][all->x] != '\0')
+	{
+		if (all->file[all->y][all->x] == ' ' && \
+		all->file[all->y][all->x - 1] != ' ')
+			all->first_row_num++;
+		all->x++;
+	}
+	all->first_row_num += 1;
+	all->x = 0;
+	all->y = 0;
 	while (all->file[all->y] != NULL)
 	{
 		if (!(all->int_arr[all->yy] = (int*)malloc(sizeof(int) * (1000))))
 			return ;
-		while (all->file[all->y][all->x] != '\0')
-		{
-			all->val = ft_atoi(all->file[all->y]);
-			if (all->y == 0)
-				all->first_row_num++;
-			all->numbers_in_row++;
-			all->int_arr[all->yy][all->xx++] = all->val;
-			while (all->file[all->y][all->x] != '\0' && \
-			all->file[all->y][all->x] != ' ')
-				all->x++;
-			while (all->file[all->y][all->x] != '\0' && \
-			all->file[all->y][all->x] == ' ')
-				all->x++;
-			all->file[all->y] = all->file[all->y] + all->x;
-//			all->file[all->y] = skip_character(all->file[all->y], ' ');
-			all->x = 0;
-		}
-		printf("first row num %i in %i\n", all->first_row_num, ii);
-		printf("number in this row %i\n", all->numbers_in_row);
-		ii++;
-		if (all->first_row_num != all->numbers_in_row)
-			exit(0);
-		all->numbers_in_row = 0;
+		ft_get_z_2(all->int_arr[all->yy], all->file[all->y], all);
 		all->yy++;
-		all->x = 0;
-		all->xx = 0;
 		all->y++;
 	}
 	all->int_arr[all->yy] = NULL;

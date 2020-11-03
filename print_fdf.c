@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 12:12:04 by ehelmine          #+#    #+#             */
-/*   Updated: 2020/11/03 09:36:02 by ehelmine         ###   ########.fr       */
+/*   Updated: 2020/11/03 09:51:59 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ void	ft_isometric_v(t_map *all, int val_1, int val_2, int point)
 		org_y = all->next_y;
 		all->next_y = -(val_1) + ((org_x + org_y) * sin(0.5));
 	}
-
 }
 
 void	ft_print_isometric_v(t_map *all)
@@ -96,8 +95,10 @@ void	ft_print_isometric_v(t_map *all)
 	{
 		while (all->yy > 0)
 		{
-			val_1 = all->int_arr[yy][xx++];
-			val_2 = all->int_arr[yy][xx];
+//			val_1 = all->int_arr[yy][xx++];
+//			val_2 = all->int_arr[yy][xx];
+			val_1 = xx++;
+			val_2 = xx;
 			ft_isometric_v(all, val_1, val_2, xx);
 			while (all->y < all->next_y)
 				all->pic[all->x++ + (all->size_l * all->y++)] = all->color;
@@ -105,7 +106,6 @@ void	ft_print_isometric_v(t_map *all)
 			all->y = org_y + (all->box * dob);
 			all->next_y = org_y + (all->box * dob++);
 		}
-//		all->int_arr[yy++][xx];
 		yy++;
 		xx = 0;
 		all->x = 0 + all->change_x + all->box;
