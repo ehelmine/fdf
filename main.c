@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 15:54:18 by ehelmine          #+#    #+#             */
-/*   Updated: 2020/11/03 09:48:59 by ehelmine         ###   ########.fr       */
+/*   Updated: 2020/11/03 16:50:33 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	ft_call_draws(t_map *all)
 	ft_print_isometric_v(all);
 	printf("\ncheck\n");
 	ft_values_for_print_h(all);
-	ft_print_base_horizontal(all);
+//	ft_print_base_horizontal(all);
 	mlx_put_image_to_window(all->mlx_ptr, all->win_ptr, all->image, 0, 0);
 	mlx_key_hook(all->win_ptr, &ft_choose_key, all);
 	mlx_hook(all->win_ptr, 17, 0, ft_exit, (void*)0);

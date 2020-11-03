@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 12:12:04 by ehelmine          #+#    #+#             */
-/*   Updated: 2020/11/03 09:51:59 by ehelmine         ###   ########.fr       */
+/*   Updated: 2020/11/03 16:53:09 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,17 +62,17 @@ void	ft_isometric_v(t_map *all, int val_1, int val_2, int point)
 	org_y = all->y;
 	if (point == 1)
 	{
-		all->y = -(val_1) + ((org_x + org_y) * sin(0.5));
-		all->x = (org_x - org_y) * cos(0.8);
+		all->y = -(val_1) + (org_x + org_y) * sin(0.5);
+		all->x = (org_x - org_y) * cos(0.5);
 		org_y = all->next_y;
-		all->next_y = -(val_2) + ((org_x + org_y) * sin(0.5));
+		all->next_y = -(val_2) + (org_x + org_y) * sin(0.5);
 	}
 	else
 	{
-		all->y = -(val_2) + ((org_x + org_y) * sin(0.5));
-		all->x = (org_x - org_y) * cos(0.8);
+		all->y = -(val_2) + (org_x + org_y) * sin(0.5);
+		all->x = (org_x - org_y) * cos(0.5);
 		org_y = all->next_y;
-		all->next_y = -(val_1) + ((org_x + org_y) * sin(0.5));
+		all->next_y = -(val_1) + (org_x + org_y) * sin(0.5);
 	}
 }
 
@@ -95,16 +95,17 @@ void	ft_print_isometric_v(t_map *all)
 	{
 		while (all->yy > 0)
 		{
-//			val_1 = all->int_arr[yy][xx++];
-//			val_2 = all->int_arr[yy][xx];
-			val_1 = xx++;
-			val_2 = xx;
+			val_1 = all->int_arr[yy][xx++];
+			val_2 = all->int_arr[yy][xx];
 			ft_isometric_v(all, val_1, val_2, xx);
 			while (all->y < all->next_y)
-				all->pic[all->x++ + (all->size_l * all->y++)] = all->color;
+			{
+				all->pic[all->x++ + (all->size_l * all->y++) + 282500] = all->color;
+				printf("\n place: %i\n", all->x + (all->size_l * all->y + 282500));
+			}
 			all->yy--;
-			all->y = org_y + (all->box * dob);
-			all->next_y = org_y + (all->box * dob++);
+			all->y = org_y + (all->box * dob++);
+			all->next_y = org_y + (all->box * dob);
 		}
 		yy++;
 		xx = 0;
@@ -114,7 +115,6 @@ void	ft_print_isometric_v(t_map *all)
 		all->next_y = all->y + all->box;
 		all->yy = all->rows - 1;
 		dob = 2;
-		org_y = all->y;
 	}
 }
 
@@ -161,7 +161,7 @@ void	ft_print_base_horizontal(t_map *all)
 			if (all->next_x > 999 || all->y > 699 || all->x > 999)
 				break ;
 			while (all->x < all->next_x && all->x < 1000)
-				all->pic[all->x++ + (all->size_l * all->y)] = all->color;
+				all->pic[all->x++ + (all->size_l * all->y) + 282500] = all->color;
 			all->columns--;
 			all->next_x = all->x + all->box;
 		}

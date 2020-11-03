@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 11:13:04 by ehelmine          #+#    #+#             */
-/*   Updated: 2020/11/03 12:09:42 by ehelmine         ###   ########.fr       */
+/*   Updated: 2020/11/03 13:54:46 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,26 +22,34 @@ void	ft_get_z_2(int *str, char *ptr, t_map *all)
 	x = 0;
 	while (ptr[x] != '\0')
 	{
-		while (ptr[x] == ' ')
+		while (ptr[x] == ' ' && ptr[x] != '\0')
 			x++;
 		ptr = ptr + x;
 		x = 0;
 		str[y] = ft_atoi(ptr);
 		all->numbers_in_row++;
-		x++;
 		y++;
+		while (ptr[x] != ' ' && ptr[x] != '\0')
+			x++;
+		ptr = ptr + x;
+		x = 0;
+		if (ptr[x] == ' ' && ptr[x + 1] == '\0')
+			break ;
 	}
+	printf("%i\n", all->numbers_in_row);
+	printf("%i\n", all->first_row_num);
 	if (all->numbers_in_row != all->first_row_num)
 		exit(0);
-	all->numbers_in_row = 0;	
+	all->numbers_in_row = 0;
 }
 
 void	ft_get_z(t_map *all)
 {
-	while(all->file[all->y][all->x] != '\0')
+	while (all->file[all->y][all->x] != '\0')
 	{
 		if (all->file[all->y][all->x] == ' ' && \
-		all->file[all->y][all->x - 1] != ' ')
+		all->file[all->y][all->x - 1] != ' ' && \
+		all->file[all->y][all->x + 1] != '\0')
 			all->first_row_num++;
 		all->x++;
 	}
@@ -50,7 +58,7 @@ void	ft_get_z(t_map *all)
 	all->y = 0;
 	while (all->file[all->y] != NULL)
 	{
-		if (!(all->int_arr[all->yy] = (int*)malloc(sizeof(int) * (1000))))
+		if (!(all->int_arr[all->yy] = (int*)malloc(sizeof(int) * (50000))))
 			return ;
 		ft_get_z_2(all->int_arr[all->yy], all->file[all->y], all);
 		all->yy++;
@@ -63,7 +71,7 @@ void	ft_before_get_z(t_map *all)
 {
 	all->yy = 0;
 	all->xx = 0;
-	if (!(all->int_arr = (int**)malloc(sizeof(int*) * (500 + 1))))
+	if (!(all->int_arr = (int**)malloc(sizeof(int*) * (50000 + 1))))
 		return ;
 	all->y = 0;
 	all->x = 0;
@@ -97,9 +105,11 @@ int		ft_valid_numbers(t_map *all)
 	}
 	return (1);
 }
-/*	Check if it is a valid file, then declare some variables, and then get all z
-**	coordinates to int array. Then declare here some other things before going back
-**	to create the image.
+
+/*
+**	Check if it is a valid file, then declare some variables, and then get all z
+**	coordinates to int array. Then declare here some other things before
+**	going back to create the image.
 */
 
 int		ft_valid_file(t_map *all)
