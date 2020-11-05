@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/11 23:50:24 by ehelmine          #+#    #+#             */
-/*   Updated: 2020/11/04 11:48:48 by ehelmine         ###   ########.fr       */
+/*   Updated: 2020/11/05 17:23:22 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ typedef struct		s_map
 	float map_y;
 	float map_x;
 	int key;
-	int y;
+	float y;
 	int yy;
-	int x;
+	float x;
 	int xx;
 	int columns;
 	char **file;
@@ -57,11 +57,11 @@ typedef struct		s_map
 	int numbers_in_row;
 	int first_row_num;
 	int rows;
-	int slope;
+	float slope;
 	int box;
 	int color;
-	int next_x;
-	int next_y;
+	float next_x;
+	float next_y;
 	int val;
 	int start;
 	void *image;
@@ -74,8 +74,10 @@ typedef struct		s_map
 	char chara;
 	int in;
 	int box_val;
-	int change_y;
-	int change_x;
+	float change_y;
+	float change_x;
+	float dx;
+	float dy;
 }					t_map;
 
 int		ft_valid_file(t_map *all);
@@ -89,7 +91,6 @@ void	ft_call_draws(t_map *all);
 void	ft_values_for_print(t_map *all);
 int		ft_exit(void);
 void	ft_read_file(t_map *all, char *str);
-void	ft_print_isometric_v(t_map *all);
-void	ft_print_isometric_h(t_map *all);
+void	ft_print_isometric(t_map *all);
 
 #endif

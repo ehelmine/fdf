@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 11:13:04 by ehelmine          #+#    #+#             */
-/*   Updated: 2020/11/04 11:06:20 by ehelmine         ###   ########.fr       */
+/*   Updated: 2020/11/05 17:22:05 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,22 +45,22 @@ void	ft_get_z_2(int *str, char *ptr, t_map *all)
 
 void	ft_get_z(t_map *all)
 {
-	while (all->file[all->y][all->x] != '\0')
+	while (all->file[(int)all->y][(int)all->x] != '\0')
 	{
-		if (all->file[all->y][all->x] == ' ' && \
-		all->file[all->y][all->x - 1] != ' ' && \
-		all->file[all->y][all->x + 1] != '\0')
+		if (all->file[(int)all->y][(int)all->x] == ' ' && \
+		all->file[(int)all->y][(int)all->x - 1] != ' ' && \
+		all->file[(int)all->y][(int)all->x + 1] != '\0')
 			all->first_row_num++;
 		all->x++;
 	}
 	all->first_row_num += 1;
 	all->x = 0;
 	all->y = 0;
-	while (all->file[all->y] != NULL)
+	while (all->file[(int)all->y] != NULL)
 	{
 		if (!(all->int_arr[all->yy] = (int*)malloc(sizeof(int) * (50000))))
 			return ;
-		ft_get_z_2(all->int_arr[all->yy], all->file[all->y], all);
+		ft_get_z_2(all->int_arr[all->yy], all->file[(int)all->y], all);
 		all->yy++;
 		all->y++;
 	}
@@ -77,10 +77,10 @@ void	ft_before_get_z(t_map *all)
 	all->x = 0;
 	all->numbers_in_row = 0;
 	all->first_row_num = 0;
-	while (all->file[all->y][all->x] != '\0' && \
-	all->file[all->y][all->x] == ' ')
+	while (all->file[(int)all->y][(int)all->x] != '\0' && \
+	all->file[(int)all->y][(int)all->x] == ' ')
 		all->x++;
-	all->file[all->y] = all->file[all->y] + all->x;
+	all->file[(int)all->y] = all->file[(int)all->y] + (int)all->x;
 	all->x = 0;
 }
 
@@ -88,14 +88,14 @@ int		ft_valid_numbers(t_map *all)
 {
 	all->y = 0;
 	all->x = 0;
-	while (all->file[all->y] != NULL)
+	while (all->file[(int)all->y] != NULL)
 	{
-		while (all->file[all->y][all->x] != '\0')
+		while (all->file[(int)all->y][(int)all->x] != '\0')
 		{
-			if ((all->file[all->y][all->x] >= '0' && \
-			all->file[all->y][all->x] <= '9') \
-			|| all->file[all->y][all->x] == ' ' \
-			|| all->file[all->y][all->x] == '-')
+			if ((all->file[(int)all->y][(int)all->x] >= '0' && \
+			all->file[(int)all->y][(int)all->x] <= '9') \
+			|| all->file[(int)all->y][(int)all->x] == ' ' \
+			|| all->file[(int)all->y][(int)all->x] == '-')
 				all->x++;
 			else
 				return (0);
@@ -121,7 +121,7 @@ int		ft_valid_file(t_map *all)
 		if (all->first_row_num > 50)
 			all->box_val = 0;
 		else
-			all->box_val = 16;
+			all->box_val = 20;
 		all->color = GREEN;
 		return (1);
 	}
@@ -154,14 +154,14 @@ void	ft_read_file(t_map *all, char *str)
 		len = ft_strlen(all->line);
 		if (len == 0)
 			return ;
-		if (!(all->file[all->y] = (char*)malloc(sizeof(char) * (len + 1))))
+		if (!(all->file[(int)all->y] = (char*)malloc(sizeof(char) * (len + 1))))
 			return ;
-		all->file[all->y][len] = '\0';
-		all->file[all->y] = ft_memmove(all->file[all->y], all->line, len);
+		all->file[(int)all->y][len] = '\0';
+		all->file[(int)all->y] = ft_memmove(all->file[(int)all->y], all->line, len);
 		free(all->line);
 		all->line = NULL;
 		all->y++;
 	}
-	all->file[all->y] = NULL;
+	all->file[(int)all->y] = NULL;
 	return ;
 }
