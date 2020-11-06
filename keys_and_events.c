@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 12:15:07 by ehelmine          #+#    #+#             */
-/*   Updated: 2020/11/03 14:17:12 by ehelmine         ###   ########.fr       */
+/*   Updated: 2020/11/06 10:02:53 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,11 @@ void	ft_color(t_map *all)
 
 int		ft_choose_key(int key, t_map *all)
 {
+	int xx;
+	int yy;
+	
+	yy = 0;
+	xx = 0;
 	ft_putnbr(key);
 	if (key == ZOOM_IN || key == 34)
 	{
@@ -79,6 +84,34 @@ int		ft_choose_key(int key, t_map *all)
 		ft_memset(all->pic, 0, all->size_l);
 		ft_image_control(all);
 		ft_color(all);
+		ft_call_draws(all);
+	}
+	if (key == ISOMETRIC)
+	{
+		ft_memset(all->pic, 0, all->size_l);
+		ft_image_control(all);
+		all->chara = 'i';
+		ft_call_draws(all);
+	}
+	if (key == PARALLEL)
+	{
+		ft_memset(all->pic, 0, all->size_l);
+		ft_image_control(all);
+		all->chara = 'p';
+		ft_call_draws(all);
+	}
+	if (key == 24)
+	{
+		ft_memset(all->pic, 0, all->size_l);
+		ft_image_control(all);
+		all->change_z += 10;
+		ft_call_draws(all);
+	}
+	if (key == 27)
+	{
+		ft_memset(all->pic, 0, all->size_l);
+		ft_image_control(all);
+		all->change_z -= 10;
 		ft_call_draws(all);
 	}
 	ft_putchar(' ');

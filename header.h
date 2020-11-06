@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/11 23:50:24 by ehelmine          #+#    #+#             */
-/*   Updated: 2020/11/05 17:23:22 by ehelmine         ###   ########.fr       */
+/*   Updated: 2020/11/06 09:56:19 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@
 # define MOVE_RIGHT								124
 # define MOVE_UP								126
 # define MOVE_DOWN								125
-//# define ISOMETRIC								34
+# define ISOMETRIC								37
+# define PARALLEL								35
 # define XK_ESCAPE                        0xff1b
 # define XK_LEFT                          0xff51  /* Move left, left arrow */
 # define XK_UP                            0xff52  /* Move up, up arrow */
@@ -41,8 +42,8 @@
 
 typedef struct		s_map
 {
-	float map_y;
-	float map_x;
+	float val_2;
+	float val_1;
 	int key;
 	float y;
 	int yy;
@@ -78,6 +79,7 @@ typedef struct		s_map
 	float change_x;
 	float dx;
 	float dy;
+	float change_z;
 }					t_map;
 
 int		ft_valid_file(t_map *all);
@@ -91,6 +93,7 @@ void	ft_call_draws(t_map *all);
 void	ft_values_for_print(t_map *all);
 int		ft_exit(void);
 void	ft_read_file(t_map *all, char *str);
-void	ft_print_isometric(t_map *all);
+void	ft_print_isometric_v(t_map *all);
+void	ft_print_isometric_h(t_map *all);
 
 #endif
