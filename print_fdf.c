@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 12:12:04 by ehelmine          #+#    #+#             */
-/*   Updated: 2020/11/06 11:14:43 by ehelmine         ###   ########.fr       */
+/*   Updated: 2020/11/06 15:41:12 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	ft_print_base_vertical(t_map *all)
 	{
 		while (all->yy < all->rows - 1)
 		{
-			if (all->next_y > SIZE - 1 || all->x > SIZE - 1 || all->y > SIZE - 1)
+			if (all->x > SIZE - 1 || all->y > SIZE - 1)
 				break ;
 			while (all->y < all->next_y && all->y < SIZE)
 			{
@@ -80,7 +80,7 @@ void	ft_print_base_horizontal(t_map *all)
 	{
 		while (all->columns < all->first_row_num - 1)
 		{
-			if (all->next_x > SIZE - 1 || all->y > SIZE - 1 || all->x > SIZE - 1)
+			if (all->y > SIZE - 1 || all->x > SIZE - 1)
 				break ;
 			while (all->x < all->next_x && all->x < SIZE)
 			{

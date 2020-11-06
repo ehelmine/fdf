@@ -6,11 +6,28 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 15:54:18 by ehelmine          #+#    #+#             */
-/*   Updated: 2020/11/06 11:14:59 by ehelmine         ###   ########.fr       */
+/*   Updated: 2020/11/06 15:33:37 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
+
+void	ft_error_handling(int error)
+{
+	if (error == 1)
+		ft_putstr("ERROR: Open fail\n");
+	else if (error == 2)
+		ft_putstr("ERROR: Get_next_line fail\n");
+	else if (error == 3)
+		ft_putstr("ERROR: Length of line is 0\n");
+	else if (error == 4)
+		ft_putstr("ERROR: Empty file\n");
+	else if (error == 5)
+		ft_putstr("ERROR: Malloc fail\n");
+	else if (error == 6)
+		ft_putstr("ERROR: Not valid numbers\n");
+	exit(0);
+}
 
 void	ft_call_draws(t_map *all)
 {
@@ -54,24 +71,28 @@ void	ft_image_control(t_map *all)
 **	Repeat until get_next_line returns 0.
 */
 
-void	ft_read_file(t_map *all, char *str)
+int		ft_read_file(t_map *all, char *str)
 {
 	int		fd;
 	size_t	len;
+	int		x;
 
+	x = 0;
 	all->y = 0;
 	fd = open(str, O_RDONLY);
 	if (fd == -1)
-		return ;
+		ft_error_handling(1);
 	if (!(all->file = (char**)malloc(sizeof(char*) * 5000)))
-		return ;
-	while (get_next_line(fd, &all->line) > 0)
+		ft_error_handling(5);
+	while ((x = get_next_line(fd, &all->line)) > 0)
 	{
+		if (x == -1)
+			ft_error_handling(2);
 		len = ft_strlen(all->line);
 		if (len == 0)
-			return ;
+			ft_error_handling(3);
 		if (!(all->file[(int)all->y] = (char*)malloc(sizeof(char) * (len + 1))))
-			return ;
+			ft_error_handling(5);
 		all->file[(int)all->y][len] = '\0';
 		all->file[(int)all->y] = ft_memmove(all->file[(int)all->y], \
 		all->line, len);
@@ -79,8 +100,10 @@ void	ft_read_file(t_map *all, char *str)
 		all->line = NULL;
 		all->y++;
 	}
+	if (x == -1)
+		ft_error_handling(2);
 	all->file[(int)all->y] = NULL;
-	return ;
+	return (1);
 }
 
 int		main(int argc, char **argv)
@@ -89,14 +112,17 @@ int		main(int argc, char **argv)
 
 	all.file = NULL;
 	if (argc != 2)
-		return (0);
+		ft_putstr("usage: ./fdf <filename>\n");
 	else
 	{
 		ft_read_file(&all, argv[1]);
-		if (all.file == NULL)
-			return (0);
+		if (all.file[0] == NULL)
+			ft_error_handling(4);
 		if (!(ft_valid_file(&all)))
+		{
+			ft_putstr("Give fdf a valid file\n");
 			return (0);
+		}
 		all.mlx_ptr = mlx_init();
 		if (all.mlx_ptr == NULL)
 			return (0);

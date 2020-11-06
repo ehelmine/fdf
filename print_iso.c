@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 10:51:54 by ehelmine          #+#    #+#             */
-/*   Updated: 2020/11/06 11:39:18 by ehelmine         ###   ########.fr       */
+/*   Updated: 2020/11/06 15:54:51 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,17 @@ void	ft_isometric_v(t_map *all, float val_1, float val_2)
 	int org_x;
 	int org_y;
 
-	if ((int)val_1 != 0)
-		val_1 += all->change_z;
-	if ((int)val_2 != 0)
-		val_2 += all->change_z;
+	if ((int)val_1 != 0 && all->change_z != 0)
+		val_1 = val_1 * all->change_z;
+	if ((int)val_2 != 0 && all->change_z != 0)
+		val_2 = val_2 * all->change_z;
 	org_x = all->x;
 	org_y = all->y;
-	all->x = (org_x - org_y) * cos(0.523599);
-	all->y = -(val_1)+ (org_x + org_y) * sin(0.523599);
+	all->x = (org_x - org_y) * cos(all->angle);
+	all->y = -(val_1)+ (org_x + org_y) * sin(all->angle);
 	org_y = all->next_y;
-	all->next_x = (org_x - org_y) * cos(0.523599);
-	all->next_y = -(val_2) + (org_x + org_y) * sin(0.523599);
+	all->next_x = (org_x - org_y) * cos(all->angle);
+	all->next_y = -(val_2) + (org_x + org_y) * sin(all->angle);
 }
 
 void	ft_isometric_h(t_map *all, float val_1, float val_2)
@@ -35,17 +35,17 @@ void	ft_isometric_h(t_map *all, float val_1, float val_2)
 	int org_x;
 	int org_y;
 
-	if ((int)val_1 != 0)
-		val_1 += all->change_z;
-	if ((int)val_2 != 0)
-		val_2 += all->change_z;
+	if ((int)val_1 != 0 && all->change_z != 0)
+		val_1 = val_1 * all->change_z;
+	if ((int)val_2 != 0 && all->change_z != 0)
+		val_2 = val_2 * all->change_z;
 	org_x = all->x;
 	org_y = all->y;
-	all->x = (org_x - org_y) * cos(0.523599);
-	all->y = -(val_1) + (org_x + org_y) * sin(0.523599);
+	all->x = (org_x - org_y) * cos(all->angle);
+	all->y = -(val_1) + (org_x + org_y) * sin(all->angle);
 	org_x = all->next_x;
-	all->next_x = (org_x - org_y) * cos(0.523599);
-	all->next_y = -(val_2) + (org_x + org_y) * sin(0.523599);
+	all->next_x = (org_x - org_y) * cos(all->angle);
+	all->next_y = -(val_2) + (org_x + org_y) * sin(all->angle);
 }
 
 void	ft_print_isometric_h(t_map *all)
