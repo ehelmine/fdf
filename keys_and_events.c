@@ -6,11 +6,16 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 12:15:07 by ehelmine          #+#    #+#             */
-/*   Updated: 2020/11/06 10:02:53 by ehelmine         ###   ########.fr       */
+/*   Updated: 2020/11/06 11:36:13 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
+
+int		ft_exit(void)
+{
+	exit(0);
+}
 
 void	ft_color(t_map *all)
 {
@@ -24,96 +29,47 @@ void	ft_color(t_map *all)
 		all->color = GREEN;
 }
 
+void	ft_more_keys(int key, t_map *all)
+{
+	if (key == MOVE_LEFT || key == XK_LEFT)
+		all->change_x -= 10;
+	if (key == MOVE_RIGHT || key == XK_RIGHT)
+		all->change_x += 10;
+	if (key == MOVE_UP || key == XK_UP)
+		all->change_y -= 10;
+	if (key == MOVE_DOWN || key == XK_DOWN)
+		all->change_y += 10;
+	if (key == ISOMETRIC)
+		all->chara = 'i';
+	if (key == PARALLEL)
+		all->chara = 'p';
+	ft_memset(all->pic, 0, all->size_l);
+	ft_image_control(all);
+	ft_call_draws(all);
+}
+
 int		ft_choose_key(int key, t_map *all)
 {
-	int xx;
-	int yy;
-	
-	yy = 0;
-	xx = 0;
 	ft_putnbr(key);
-	if (key == ZOOM_IN || key == 34)
-	{
-		ft_memset(all->pic, 0, all->size_l);
-		ft_image_control(all);
-		all->box_val += 1;
-		ft_call_draws(all);
-	}
-	if ((key == ZOOM_OUT || key == 31) && all->box > 2)
-	{
-		ft_memset(all->pic, 0, all->size_l);
-		ft_image_control(all);
-		all->box_val -= 1;
-		ft_call_draws(all);
-	}
 	if (key == ESC_KEY || key == XK_ESCAPE)
-	{
-	//	system("leaks fdf");
 		exit(0);
-	}
-	if (key == MOVE_LEFT || key == XK_LEFT)
-	{
-		ft_memset(all->pic, 0, all->size_l);
-		ft_image_control(all);
-		all->change_x -= 10;
-		ft_call_draws(all);
-	}
-	if (key == MOVE_RIGHT || key == XK_RIGHT)
-	{
-		ft_memset(all->pic, 0, all->size_l);
-		ft_image_control(all);
-		all->change_x += 10;
-		ft_call_draws(all);
-	}
-	if (key == MOVE_UP || key == XK_UP)
-	{
-		ft_memset(all->pic, 0, all->size_l);
-		ft_image_control(all);
-		all->change_y -= 10;
-		ft_call_draws(all);
-	}
-	if (key == MOVE_DOWN || key == XK_DOWN)
-	{
-		ft_memset(all->pic, 0, all->size_l);
-		ft_image_control(all);
-		all->change_y += 10;
-		ft_call_draws(all);
-	}
+	if (key == MOVE_LEFT || key == MOVE_RIGHT ||
+		key == MOVE_UP || key == MOVE_DOWN ||
+		key == ISOMETRIC || key == PARALLEL)
+		ft_more_keys(key, all);
+	if (key == ZOOM_IN || key == 34)
+		all->box_val += 1;
+	if ((key == ZOOM_OUT || key == 31) && all->box > 2)
+		all->box_val -= 1;
 	if (key == 99 || key == 8)
-	{
-		ft_memset(all->pic, 0, all->size_l);
-		ft_image_control(all);
 		ft_color(all);
-		ft_call_draws(all);
-	}
-	if (key == ISOMETRIC)
-	{
-		ft_memset(all->pic, 0, all->size_l);
-		ft_image_control(all);
-		all->chara = 'i';
-		ft_call_draws(all);
-	}
-	if (key == PARALLEL)
-	{
-		ft_memset(all->pic, 0, all->size_l);
-		ft_image_control(all);
-		all->chara = 'p';
-		ft_call_draws(all);
-	}
 	if (key == 24)
-	{
-		ft_memset(all->pic, 0, all->size_l);
-		ft_image_control(all);
 		all->change_z += 10;
-		ft_call_draws(all);
-	}
 	if (key == 27)
-	{
-		ft_memset(all->pic, 0, all->size_l);
-		ft_image_control(all);
 		all->change_z -= 10;
-		ft_call_draws(all);
-	}
+	ft_memset(all->pic, 0, all->size_l);
+	ft_image_control(all);
+	ft_call_draws(all);
 	ft_putchar(' ');
 	return (1);
 }

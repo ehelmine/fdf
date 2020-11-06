@@ -6,13 +6,13 @@
 #    By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/10/06 10:55:13 by ehelmine          #+#    #+#              #
-#    Updated: 2020/11/05 10:28:33 by ehelmine         ###   ########.fr        #
+#    Updated: 2020/11/06 10:51:43 by ehelmine         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = fdf
 
-SRCS = main.c validate_file.c print_fdf.c keys_and_events.c
+SRCS = main.c validate_file.c print_fdf.c keys_and_events.c set_values.c print_iso.c
 
 OBJECT = $(SRCS:.c=.o)
 
