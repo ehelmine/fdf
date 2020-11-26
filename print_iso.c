@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 10:51:54 by ehelmine          #+#    #+#             */
-/*   Updated: 2020/11/06 15:54:51 by ehelmine         ###   ########.fr       */
+/*   Updated: 2020/11/26 14:56:55 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_isometric_v(t_map *all, float val_1, float val_2)
 	org_x = all->x;
 	org_y = all->y;
 	all->x = (org_x - org_y) * cos(all->angle);
-	all->y = -(val_1)+ (org_x + org_y) * sin(all->angle);
+	all->y = -(val_1) + (org_x + org_y) * sin(all->angle);
 	org_y = all->next_y;
 	all->next_x = (org_x - org_y) * cos(all->angle);
 	all->next_y = -(val_2) + (org_x + org_y) * sin(all->angle);

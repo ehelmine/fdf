@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 12:15:07 by ehelmine          #+#    #+#             */
-/*   Updated: 2020/11/06 16:11:38 by ehelmine         ###   ########.fr       */
+/*   Updated: 2020/11/26 17:11:43 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,8 @@ int		ft_choose_key(int key, t_map *all)
 	ft_putnbr(key);
 	if (key == ESC_KEY || key == XK_ESCAPE)
 		exit(0);
-	if (key == MOVE_LEFT || key == MOVE_RIGHT ||
-		key == MOVE_UP || key == MOVE_DOWN ||
-		key == PROJECTIONS || key == PARALLEL)
+	if (key == MOVE_LEFT || key == MOVE_RIGHT || key == MOVE_UP ||
+		key == MOVE_DOWN || key == PROJECTIONS || key == PARALLEL)
 		ft_more_keys(key, all);
 	if (key == ZOOM_IN || key == 34)
 	{
@@ -82,6 +81,8 @@ int		ft_choose_key(int key, t_map *all)
 	ft_memset(all->pic, 0, all->size_l);
 	ft_image_control(all);
 	ft_call_draws(all);
+	ft_putchar(' ');
+	ft_putnbr(all->box);
 	ft_putchar(' ');
 	return (1);
 }

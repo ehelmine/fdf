@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 15:54:18 by ehelmine          #+#    #+#             */
-/*   Updated: 2020/11/06 15:33:37 by ehelmine         ###   ########.fr       */
+/*   Updated: 2020/11/26 14:34:04 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,10 +119,7 @@ int		main(int argc, char **argv)
 		if (all.file[0] == NULL)
 			ft_error_handling(4);
 		if (!(ft_valid_file(&all)))
-		{
-			ft_putstr("Give fdf a valid file\n");
-			return (0);
-		}
+			ft_error_handling(6);
 		all.mlx_ptr = mlx_init();
 		if (all.mlx_ptr == NULL)
 			return (0);
