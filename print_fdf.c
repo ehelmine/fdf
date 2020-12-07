@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 12:12:04 by ehelmine          #+#    #+#             */
-/*   Updated: 2020/11/06 15:41:12 by ehelmine         ###   ########.fr       */
+/*   Updated: 2020/12/07 12:24:50 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ void	ft_dda(t_map *all)
 		all->slope = abs_val(all->dx);
 	else
 		all->slope = abs_val(all->dy);
-//	printf("all->slope %f\n", all->slope);
 	all->dx = all->dx / all->slope;
 	all->dy = all->dy / all->slope;
 }
@@ -72,8 +71,6 @@ void	ft_print_base_vertical(t_map *all)
 
 void	ft_print_base_horizontal(t_map *all)
 {
-//	printf("how many columns %i\n", all->first_row_num);
-//	printf("how many rows %i\n", all->rows);
 	all->columns = 0;
 	all->yy = 0;
 	while (all->yy < all->rows)

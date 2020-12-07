@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 11:13:04 by ehelmine          #+#    #+#             */
-/*   Updated: 2020/11/26 17:03:10 by ehelmine         ###   ########.fr       */
+/*   Updated: 2020/12/04 14:42:32 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,14 +116,12 @@ int		ft_valid_file(t_map *all)
 	{
 		ft_before_get_z(all);
 		ft_get_z(all);
-		if (all->first_row_num > 50)
-			all->box_val = 10;
-		else
-			all->box_val = 20;
+		all->box_val = 10;
 		all->color = GREEN;
 		all->chara = 'p';
-		all->change_z = all->box_val;
+		all->change_z = 10;
 		all->angle = 0.523599;
+		ft_free((void**)all->file);
 		return (1);
 	}
 	ft_error_handling(6);

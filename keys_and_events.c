@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 12:15:07 by ehelmine          #+#    #+#             */
-/*   Updated: 2020/11/26 17:11:43 by ehelmine         ###   ########.fr       */
+/*   Updated: 2020/12/04 15:51:58 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,13 @@ void	ft_color(t_map *all)
 
 void	ft_more_keys(int key, t_map *all)
 {
-	if (key == MOVE_LEFT || key == XK_LEFT)
+	if (key == XK_LEFT)
 		all->change_x -= 10;
-	if (key == MOVE_RIGHT || key == XK_RIGHT)
+	if (key == XK_RIGHT)
 		all->change_x += 10;
-	if (key == MOVE_UP || key == XK_UP)
+	if (key == XK_UP)
 		all->change_y -= 10;
-	if (key == MOVE_DOWN || key == XK_DOWN)
+	if (key == XK_DOWN)
 		all->change_y += 10;
 	if (key == PROJECTIONS)
 	{
@@ -49,40 +49,27 @@ void	ft_more_keys(int key, t_map *all)
 	}
 	if (key == PARALLEL)
 		all->chara = 'p';
-	ft_memset(all->pic, 0, all->size_l);
-	ft_image_control(all);
-	ft_call_draws(all);
 }
 
 int		ft_choose_key(int key, t_map *all)
 {
-	ft_putnbr(key);
 	if (key == ESC_KEY || key == XK_ESCAPE)
 		exit(0);
-	if (key == MOVE_LEFT || key == MOVE_RIGHT || key == MOVE_UP ||
-		key == MOVE_DOWN || key == PROJECTIONS || key == PARALLEL)
+	if (key == PROJECTIONS || key == PARALLEL || key == XK_DOWN ||
+		key == XK_UP || key == XK_LEFT || key == XK_RIGHT)
 		ft_more_keys(key, all);
-	if (key == ZOOM_IN || key == 34)
-	{
+	if (key == ZOOM_IN)
 		all->box_val += 1;
-		all->change_z += 1;
-	}
-	if ((key == ZOOM_OUT || key == 31) && all->box > 2)
-	{
+	if ((key == ZOOM_OUT) && all->box > 4)
 		all->box_val -= 1;
-		all->change_z -= 1;
-	}
-	if (key == 99 || key == 8)
+	if (key == CHANGE_COLOR)
 		ft_color(all);
-	if (key == 24)
-		all->change_z += 10;
-	if (key == 27)
-		all->change_z -= 10;
-	ft_memset(all->pic, 0, all->size_l);
+	if (key == MORE_HIGH && all->chara == 'i')
+		all->change_z += 2;
+	if (key == LESS_HIGH && all->chara == 'i')
+		all->change_z -= 2;
+	mlx_destroy_image(all->mlx_ptr, all->image);
 	ft_image_control(all);
 	ft_call_draws(all);
-	ft_putchar(' ');
-	ft_putnbr(all->box);
-	ft_putchar(' ');
 	return (1);
 }

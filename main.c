@@ -6,27 +6,23 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/06 15:54:18 by ehelmine          #+#    #+#             */
-/*   Updated: 2020/11/26 14:34:04 by ehelmine         ###   ########.fr       */
+/*   Updated: 2020/12/07 12:18:10 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-void	ft_error_handling(int error)
+void	ft_instructions_to_window(t_map *all)
 {
-	if (error == 1)
-		ft_putstr("ERROR: Open fail\n");
-	else if (error == 2)
-		ft_putstr("ERROR: Get_next_line fail\n");
-	else if (error == 3)
-		ft_putstr("ERROR: Length of line is 0\n");
-	else if (error == 4)
-		ft_putstr("ERROR: Empty file\n");
-	else if (error == 5)
-		ft_putstr("ERROR: Malloc fail\n");
-	else if (error == 6)
-		ft_putstr("ERROR: Not valid numbers\n");
-	exit(0);
+	mlx_string_put(all->mlx_ptr, all->win_ptr, 550, 50, P, "INSTRUCTIONS");
+	mlx_string_put(all->mlx_ptr, all->win_ptr, 550, 70, P, "ZOOM IN:  I");
+	mlx_string_put(all->mlx_ptr, all->win_ptr, 550, 90, P, "ZOOM OUT: O");
+	mlx_string_put(all->mlx_ptr, all->win_ptr, 550, 110, P, "Z UP:     +");
+	mlx_string_put(all->mlx_ptr, all->win_ptr, 550, 130, P, "Z DOWN:   -");
+	mlx_string_put(all->mlx_ptr, all->win_ptr, 550, 150, P, "MOVE:     ARROWS");
+	mlx_string_put(all->mlx_ptr, all->win_ptr, 550, 170, P, "FLAT:     P");
+	mlx_string_put(all->mlx_ptr, all->win_ptr, 550, 190, P, "OTHER:    L");
+	mlx_string_put(all->mlx_ptr, all->win_ptr, 550, 210, P, "COLOR:    C");
 }
 
 void	ft_call_draws(t_map *all)
@@ -40,14 +36,16 @@ void	ft_call_draws(t_map *all)
 	}
 	else if (all->chara == 'i')
 	{
-		ft_values_for_iso_v(all);
-		ft_print_isometric_v(all);
-		ft_values_for_iso_h(all);
-		ft_print_isometric_h(all);
+		ft_values_for_proj_v(all);
+		ft_print_projection_v(all);
+		ft_values_for_proj_h(all);
+		ft_print_projection_h(all);
 	}
 	mlx_put_image_to_window(all->mlx_ptr, all->win_ptr, all->image, 0, 0);
+	ft_instructions_to_window(all);
 	mlx_key_hook(all->win_ptr, &ft_choose_key, all);
 	mlx_hook(all->win_ptr, 17, 0, ft_exit, (void*)0);
+	mlx_loop(all->mlx_ptr);
 }
 
 void	ft_image_control(t_map *all)
@@ -73,36 +71,29 @@ void	ft_image_control(t_map *all)
 
 int		ft_read_file(t_map *all, char *str)
 {
-	int		fd;
-	size_t	len;
-	int		x;
-
-	x = 0;
-	all->y = 0;
-	fd = open(str, O_RDONLY);
-	if (fd == -1)
+	all->fd = open(str, O_RDONLY);
+	if (all->fd == -1)
 		ft_error_handling(1);
-	if (!(all->file = (char**)malloc(sizeof(char*) * 5000)))
+	if (!(all->file = (char**)malloc(sizeof(char*) * 50000)))
 		ft_error_handling(5);
-	while ((x = get_next_line(fd, &all->line)) > 0)
+	while ((all->xx = get_next_line(all->fd, &all->line)) > 0)
 	{
-		if (x == -1)
+		if (all->xx == -1)
 			ft_error_handling(2);
-		len = ft_strlen(all->line);
-		if (len == 0)
+		all->len = ft_strlen(all->line);
+		if (all->len == 0)
 			ft_error_handling(3);
-		if (!(all->file[(int)all->y] = (char*)malloc(sizeof(char) * (len + 1))))
+		if (!(all->file[all->i] = (char*)malloc(sizeof(char) * (all->len + 1))))
 			ft_error_handling(5);
-		all->file[(int)all->y][len] = '\0';
-		all->file[(int)all->y] = ft_memmove(all->file[(int)all->y], \
-		all->line, len);
+		all->file[all->i][all->len] = '\0';
+		all->file[all->i] = ft_memmove(all->file[all->i], all->line, all->len);
 		free(all->line);
 		all->line = NULL;
-		all->y++;
+		all->i++;
 	}
-	if (x == -1)
+	if (all->xx == -1)
 		ft_error_handling(2);
-	all->file[(int)all->y] = NULL;
+	all->file[all->i] = NULL;
 	return (1);
 }
 
@@ -115,6 +106,8 @@ int		main(int argc, char **argv)
 		ft_putstr("usage: ./fdf <filename>\n");
 	else
 	{
+		all.xx = 0;
+		all.i = 0;
 		ft_read_file(&all, argv[1]);
 		if (all.file[0] == NULL)
 			ft_error_handling(4);
@@ -126,9 +119,7 @@ int		main(int argc, char **argv)
 		all.win_ptr = mlx_new_window(all.mlx_ptr, SIZE, SIZE, "my fdf");
 		ft_image_control(&all);
 		ft_call_draws(&all);
-		mlx_key_hook(all.win_ptr, &ft_choose_key, &all);
-		mlx_hook(all.win_ptr, 17, 0, ft_exit, (void*)0);
-		mlx_loop(all.mlx_ptr);
+		ft_free((void**)all.int_arr);
 	}
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 10:47:45 by ehelmine          #+#    #+#             */
-/*   Updated: 2020/11/06 11:06:25 by ehelmine         ###   ########.fr       */
+/*   Updated: 2020/12/01 15:24:58 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ft_values_for_print_v(t_map *all)
 	all->next_y = all->y + all->box;
 }
 
-void	ft_values_for_iso_h(t_map *all)
+void	ft_values_for_proj_h(t_map *all)
 {
 	all->rows = 0;
 	while (all->int_arr[all->rows] != NULL)
@@ -47,7 +47,7 @@ void	ft_values_for_iso_h(t_map *all)
 	all->ii = 0;
 }
 
-void	ft_values_for_iso_v(t_map *all)
+void	ft_values_for_proj_v(t_map *all)
 {
 	all->rows = 0;
 	while (all->int_arr[all->rows] != NULL)

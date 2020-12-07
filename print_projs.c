@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_iso.c                                        :+:      :+:    :+:   */
+/*   print_projs.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 10:51:54 by ehelmine          #+#    #+#             */
-/*   Updated: 2020/11/26 14:56:55 by ehelmine         ###   ########.fr       */
+/*   Updated: 2020/12/07 12:39:53 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-void	ft_isometric_v(t_map *all, float val_1, float val_2)
+void	ft_projection_v(t_map *all, float val_1, float val_2)
 {
 	int org_x;
 	int org_y;
@@ -30,7 +30,7 @@ void	ft_isometric_v(t_map *all, float val_1, float val_2)
 	all->next_y = -(val_2) + (org_x + org_y) * sin(all->angle);
 }
 
-void	ft_isometric_h(t_map *all, float val_1, float val_2)
+void	ft_projection_h(t_map *all, float val_1, float val_2)
 {
 	int org_x;
 	int org_y;
@@ -48,7 +48,7 @@ void	ft_isometric_h(t_map *all, float val_1, float val_2)
 	all->next_y = -(val_2) + (org_x + org_y) * sin(all->angle);
 }
 
-void	ft_print_isometric_h(t_map *all)
+void	ft_print_projection_h(t_map *all)
 {
 	while (all->yy < all->rows)
 	{
@@ -56,7 +56,7 @@ void	ft_print_isometric_h(t_map *all)
 		{
 			all->val_1 = all->int_arr[all->i][all->ii++];
 			all->val_2 = all->int_arr[all->i][all->ii];
-			ft_isometric_h(all, all->val_1, all->val_2);
+			ft_projection_h(all, all->val_1, all->val_2);
 			ft_dda(all);
 			all->i_slope = 0;
 			while (all->i_slope < all->slope)
@@ -83,7 +83,7 @@ void	ft_print_isometric_h(t_map *all)
 	}
 }
 
-void	ft_print_isometric_v(t_map *all)
+void	ft_print_projection_v(t_map *all)
 {
 	while (all->columns < all->first_row_num)
 	{
@@ -91,19 +91,19 @@ void	ft_print_isometric_v(t_map *all)
 		{
 			all->val_1 = all->int_arr[all->i++][all->ii];
 			all->val_2 = all->int_arr[all->i][all->ii];
-//			printf("val 1 %f\n", all->val_1);
-//			printf("val 2 %f\n", all->val_2);
-			ft_isometric_v(all, all->val_1, all->val_2);
+			ft_projection_v(all, all->val_1, all->val_2);
 			ft_dda(all);
 			all->i_slope = 0;
 			while (all->i_slope < all->slope)
 			{
-				if (all->x > 0 && all->y > 0 && all->x < SIZE && all->y < SIZE)
+				ft_print_v_loop(all);
+/*				if (all->x > 0 && all->y > 0 && all->x < SIZE && all->y < SIZE)
 					all->pic[(int)all->x + (all->size_l * (int)all->y)] = \
 					all->color;
 				all->y = all->y + all->dy;
 				all->x = all->x + all->dx;
 				all->i_slope++;
+				*/
 			}
 			all->y = 0 + all->change_y + (all->box * ++all->yy);
 			all->x = 0 + all->change_x + (all->box * all->columns);
