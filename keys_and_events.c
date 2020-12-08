@@ -6,11 +6,11 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 12:15:07 by ehelmine          #+#    #+#             */
-/*   Updated: 2020/12/07 13:15:25 by ehelmine         ###   ########.fr       */
+/*   Updated: 2020/12/09 01:12:58 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "header.h"
+#include "fdf.h"
 
 int		ft_exit(void)
 {
@@ -71,9 +71,9 @@ int		ft_choose_key(int key, t_map *all)
 	if (key == CHANGE_COLOR)
 		ft_color(all);
 	if (key == MORE_HIGH && all->chara == 'i')
-		all->change_z += 1;
+		all->amp += 0.05;
 	if (key == LESS_HIGH && all->chara == 'i')
-		all->change_z -= 1;
+		all->amp -= 0.05;
 	mlx_destroy_image(all->mlx_ptr, all->image);
 	ft_image_control(all);
 	ft_call_draws(all);

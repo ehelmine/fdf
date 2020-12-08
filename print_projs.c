@@ -6,11 +6,11 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 10:51:54 by ehelmine          #+#    #+#             */
-/*   Updated: 2020/12/07 13:15:01 by ehelmine         ###   ########.fr       */
+/*   Updated: 2020/12/08 20:16:37 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "header.h"
+#include "fdf.h"
 
 void	ft_projection_v(t_map *all, float val_1, float val_2)
 {
@@ -19,8 +19,12 @@ void	ft_projection_v(t_map *all, float val_1, float val_2)
 
 	if ((int)val_1 != 0 && all->change_z != 0)
 		val_1 = val_1 * all->change_z;
+	if (all->amp != 0)
+		val_1 = val_1 * all->amp;
 	if ((int)val_2 != 0 && all->change_z != 0)
 		val_2 = val_2 * all->change_z;
+	if (all->amp != 0)
+		val_2 = val_2 * all->amp;
 	org_x = all->x;
 	org_y = all->y;
 	all->x = (org_x - org_y) * cos(all->angle);
@@ -37,8 +41,12 @@ void	ft_projection_h(t_map *all, float val_1, float val_2)
 
 	if ((int)val_1 != 0 && all->change_z != 0)
 		val_1 = val_1 * all->change_z;
+	if (all->amp != 0)
+		val_1 = val_1 * all->amp;
 	if ((int)val_2 != 0 && all->change_z != 0)
 		val_2 = val_2 * all->change_z;
+	if (all->amp != 0)
+		val_2 = val_2 * all->amp;
 	org_x = all->x;
 	org_y = all->y;
 	all->x = (org_x - org_y) * cos(all->angle);

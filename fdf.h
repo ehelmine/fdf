@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   header.h                                           :+:      :+:    :+:   */
+/*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/11 23:50:24 by ehelmine          #+#    #+#             */
-/*   Updated: 2020/12/07 12:47:27 by ehelmine         ###   ########.fr       */
+/*   Created: 2020/12/08 15:16:37 by ehelmine          #+#    #+#             */
+/*   Updated: 2020/12/09 01:20:21 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HEADER_H
-# define HEADER_H
+#ifndef FDF_H
+# define FDF_H
 
 # define SIZE						700
 # define ESC_KEY					53
@@ -36,14 +36,11 @@
 # define RED						0xFF0000
 # define YELLOW						0xFFFF00
 # define P							0xFFC0CB
-# include "mlx.h"
 # include "libft/includes/libft.h"
 # include <stdlib.h>
 # include <fcntl.h>
-# include <unistd.h>
 # include <math.h>
 # include <mlx.h>
-# include <stdio.h>
 
 typedef struct	s_map
 {
@@ -70,7 +67,6 @@ typedef struct	s_map
 	int			color;
 	float		next_x;
 	float		next_y;
-	int			val;
 	void		*image;
 	int			size_l;
 	int			endian;
@@ -87,7 +83,7 @@ typedef struct	s_map
 	int			i;
 	int			ii;
 	double		angle;
-	int			check;
+	float		amp;
 }				t_map;
 
 int				ft_valid_file(t_map *all);

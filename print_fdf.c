@@ -6,11 +6,11 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 12:12:04 by ehelmine          #+#    #+#             */
-/*   Updated: 2020/12/07 12:24:50 by ehelmine         ###   ########.fr       */
+/*   Updated: 2020/12/08 16:56:39 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "header.h"
+#include "fdf.h"
 
 float	abs_val(float x)
 {
@@ -43,8 +43,6 @@ void	ft_dda(t_map *all)
 
 void	ft_print_base_vertical(t_map *all)
 {
-	all->columns = 0;
-	all->yy = 0;
 	while (all->columns < all->first_row_num)
 	{
 		while (all->yy < all->rows - 1)
@@ -71,8 +69,6 @@ void	ft_print_base_vertical(t_map *all)
 
 void	ft_print_base_horizontal(t_map *all)
 {
-	all->columns = 0;
-	all->yy = 0;
 	while (all->yy < all->rows)
 	{
 		while (all->columns < all->first_row_num - 1)
@@ -89,6 +85,8 @@ void	ft_print_base_horizontal(t_map *all)
 			all->columns++;
 			all->next_x = all->x + all->box;
 		}
+		if (all->yy == all->rows - 1 && all->y < SIZE && all->x < SIZE)
+			all->pic[(int)all->x + (all->size_l * (int)all->y)] = all->color;
 		all->columns = 0;
 		all->yy++;
 		all->x = 0 + all->change_x;

@@ -6,12 +6,11 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 11:13:04 by ehelmine          #+#    #+#             */
-/*   Updated: 2020/12/04 14:42:32 by ehelmine         ###   ########.fr       */
+/*   Updated: 2020/12/08 23:50:57 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "header.h"
-#include <stdio.h>
+#include "fdf.h"
 
 void	ft_get_z_2(int *str, char *ptr, t_map *all)
 {
@@ -37,7 +36,7 @@ void	ft_get_z_2(int *str, char *ptr, t_map *all)
 			break ;
 	}
 	if (all->numbers_in_row != all->first_row_num)
-		exit(0);
+		ft_error_handling(7);
 	all->numbers_in_row = 0;
 }
 
@@ -120,8 +119,10 @@ int		ft_valid_file(t_map *all)
 		all->color = GREEN;
 		all->chara = 'p';
 		all->change_z = 10;
+		all->change_x = 0;
+		all->change_y = 0;
+		all->amp = 1;
 		all->angle = 0.523599;
-		ft_free((void**)all->file);
 		return (1);
 	}
 	ft_error_handling(6);
