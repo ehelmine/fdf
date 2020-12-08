@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 12:15:07 by ehelmine          #+#    #+#             */
-/*   Updated: 2020/12/04 15:51:58 by ehelmine         ###   ########.fr       */
+/*   Updated: 2020/12/07 13:15:25 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,15 +59,21 @@ int		ft_choose_key(int key, t_map *all)
 		key == XK_UP || key == XK_LEFT || key == XK_RIGHT)
 		ft_more_keys(key, all);
 	if (key == ZOOM_IN)
+	{
 		all->box_val += 1;
+		all->change_z += 1;
+	}
 	if ((key == ZOOM_OUT) && all->box > 4)
+	{
 		all->box_val -= 1;
+		all->change_z -= 1;
+	}
 	if (key == CHANGE_COLOR)
 		ft_color(all);
 	if (key == MORE_HIGH && all->chara == 'i')
-		all->change_z += 2;
+		all->change_z += 1;
 	if (key == LESS_HIGH && all->chara == 'i')
-		all->change_z -= 2;
+		all->change_z -= 1;
 	mlx_destroy_image(all->mlx_ptr, all->image);
 	ft_image_control(all);
 	ft_call_draws(all);

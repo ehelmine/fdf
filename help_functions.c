@@ -6,13 +6,13 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/04 14:15:15 by ehelmine          #+#    #+#             */
-/*   Updated: 2020/12/07 12:37:07 by ehelmine         ###   ########.fr       */
+/*   Updated: 2020/12/07 12:48:01 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "header.h"
 
-void	ft_print_v_loop(t_map *all)
+void	ft_print_proj_loop(t_map *all)
 {
 	if (all->x > 0 && all->y > 0 && all->x < SIZE && all->y < SIZE)
 		all->pic[(int)all->x + (all->size_l * (int)all->y)] = \

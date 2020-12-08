@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 10:51:54 by ehelmine          #+#    #+#             */
-/*   Updated: 2020/12/07 12:39:53 by ehelmine         ###   ########.fr       */
+/*   Updated: 2020/12/07 13:15:01 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,14 +60,7 @@ void	ft_print_projection_h(t_map *all)
 			ft_dda(all);
 			all->i_slope = 0;
 			while (all->i_slope < all->slope)
-			{
-				if (all->x > 0 && all->y > 0 && all->x < SIZE && all->y < SIZE)
-					all->pic[(int)all->x + (all->size_l * (int)all->y)] = \
-					all->color;
-				all->y = all->y + all->dy;
-				all->x = all->x + all->dx;
-				all->i_slope++;
-			}
+				ft_print_proj_loop(all);
 			all->y = 0 + all->change_y + (all->box * all->yy);
 			all->x = 0 + all->change_x + (all->box * ++all->columns);
 			all->next_x = all->x + all->box;
@@ -95,27 +88,17 @@ void	ft_print_projection_v(t_map *all)
 			ft_dda(all);
 			all->i_slope = 0;
 			while (all->i_slope < all->slope)
-			{
-				ft_print_v_loop(all);
-/*				if (all->x > 0 && all->y > 0 && all->x < SIZE && all->y < SIZE)
-					all->pic[(int)all->x + (all->size_l * (int)all->y)] = \
-					all->color;
-				all->y = all->y + all->dy;
-				all->x = all->x + all->dx;
-				all->i_slope++;
-				*/
-			}
+				ft_print_proj_loop(all);
 			all->y = 0 + all->change_y + (all->box * ++all->yy);
 			all->x = 0 + all->change_x + (all->box * all->columns);
 			all->next_x = all->x;
 			all->next_y = all->y + all->box;
 		}
-		all->columns++;
 		all->ii++;
 		all->i = 0;
 		all->yy = 0;
 		all->y = 0 + all->change_y;
-		all->x = 0 + all->change_x + (all->box * all->columns);
+		all->x = 0 + all->change_x + (all->box * ++all->columns);
 		all->next_x = all->x;
 		all->next_y = all->y + all->box;
 	}

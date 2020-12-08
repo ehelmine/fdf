@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/11 23:50:24 by ehelmine          #+#    #+#             */
-/*   Updated: 2020/12/07 12:38:13 by ehelmine         ###   ########.fr       */
+/*   Updated: 2020/12/07 12:47:27 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,6 @@ int				ft_read_file(t_map *all, char *str);
 void			ft_values_for_proj_v(t_map *all);
 void			ft_projection_v(t_map *all, float val_1, float val_2);
 void			ft_print_projection_v(t_map *all);
-void			ft_print_v_loop(t_map *all);
 void			ft_values_for_proj_h(t_map *all);
 void			ft_projection_h(t_map *all, float val_1, float val_2);
 void			ft_print_projection_h(t_map *all);
@@ -112,5 +111,6 @@ void			ft_dda(t_map *all);
 float			abs_val(float x);
 void			ft_error_handling(int error);
 void			ft_free(void **array);
+void			ft_print_proj_loop(t_map *all);
 
 #endif
