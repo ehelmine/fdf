@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/04 14:15:15 by ehelmine          #+#    #+#             */
-/*   Updated: 2020/12/08 23:50:37 by ehelmine         ###   ########.fr       */
+/*   Updated: 2020/12/09 19:38:49 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ void	ft_error_handling(int error)
 		ft_putstr("ERROR: Not valid content\n");
 	else if (error == 7)
 		ft_putstr("ERROR: Lines are not same length\n");
+	else if (error == 8)
+		ft_putstr("ERROR: Z value can't be over 999\n");
 	exit(0);
 }
 
@@ -55,4 +57,12 @@ void	ft_free(void **array)
 	}
 	free(array);
 	array = NULL;
+}
+
+float	abs_val(float x)
+{
+	if (x < 0)
+		return (x * -1);
+	else
+		return (x);
 }

@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/14 11:13:04 by ehelmine          #+#    #+#             */
-/*   Updated: 2020/12/08 23:50:57 by ehelmine         ###   ########.fr       */
+/*   Updated: 2020/12/09 19:34:00 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,10 @@ void	ft_get_z_2(int *str, char *ptr, t_map *all)
 			x++;
 		ptr = ptr + x;
 		x = 0;
-		str[y] = ft_atoi(ptr);
+		str[y++] = ft_atoi(ptr);
+		if (str[y - 1] > 999)
+			ft_error_handling(8);
 		all->numbers_in_row++;
-		y++;
 		while (ptr[x] != ' ' && ptr[x] != '\0')
 			x++;
 		ptr = ptr + x;
@@ -81,50 +82,17 @@ void	ft_before_get_z(t_map *all)
 	all->x = 0;
 }
 
-int		ft_valid_numbers(t_map *all)
-{
-	all->y = 0;
-	all->x = 0;
-	while (all->file[(int)all->y] != NULL)
-	{
-		while (all->file[(int)all->y][(int)all->x] != '\0')
-		{
-			if ((all->file[(int)all->y][(int)all->x] >= '0' && \
-			all->file[(int)all->y][(int)all->x] <= '9') \
-			|| all->file[(int)all->y][(int)all->x] == ' ' \
-			|| all->file[(int)all->y][(int)all->x] == '-')
-				all->x++;
-			else
-				return (0);
-		}
-		all->y++;
-		all->x = 0;
-	}
-	return (1);
-}
-
-/*
-**	Check if it is a valid file, then declare some variables, and then get all z
-**	coordinates to int array. Then declare here some other things before
-**	going back to create the image.
-*/
-
 int		ft_valid_file(t_map *all)
 {
-	if (ft_valid_numbers(all) != 0)
-	{
-		ft_before_get_z(all);
-		ft_get_z(all);
-		all->box_val = 10;
-		all->color = GREEN;
-		all->chara = 'p';
-		all->change_z = 10;
-		all->change_x = 0;
-		all->change_y = 0;
-		all->amp = 1;
-		all->angle = 0.523599;
-		return (1);
-	}
-	ft_error_handling(6);
-	return (0);
+	ft_before_get_z(all);
+	ft_get_z(all);
+	all->box_val = 10;
+	all->color = GREEN;
+	all->chara = 'p';
+	all->change_z = 10;
+	all->change_x = 0;
+	all->change_y = 0;
+	all->amp = 1;
+	all->angle = 0.523599;
+	return (1);
 }

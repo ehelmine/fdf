@@ -6,11 +6,32 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/06 10:51:54 by ehelmine          #+#    #+#             */
-/*   Updated: 2020/12/08 20:16:37 by ehelmine         ###   ########.fr       */
+/*   Updated: 2020/12/09 19:38:15 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+void	ft_dda(t_map *all)
+{
+	float x;
+	float y;
+	float next_x;
+	float next_y;
+
+	x = all->x;
+	y = all->y;
+	next_x = all->next_x;
+	next_y = all->next_y;
+	all->dx = next_x - x;
+	all->dy = next_y - y;
+	if (abs_val(all->dx) >= abs_val(all->dy))
+		all->slope = abs_val(all->dx);
+	else
+		all->slope = abs_val(all->dy);
+	all->dx = all->dx / all->slope;
+	all->dy = all->dy / all->slope;
+}
 
 void	ft_projection_v(t_map *all, float val_1, float val_2)
 {

@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 12:15:07 by ehelmine          #+#    #+#             */
-/*   Updated: 2020/12/09 01:12:58 by ehelmine         ###   ########.fr       */
+/*   Updated: 2020/12/09 19:41:55 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	ft_more_keys(int key, t_map *all)
 
 int		ft_choose_key(int key, t_map *all)
 {
-	if (key == ESC_KEY || key == XK_ESCAPE)
+	if (key == XK_ESCAPE)
 		exit(0);
 	if (key == PROJECTIONS || key == PARALLEL || key == XK_DOWN ||
 		key == XK_UP || key == XK_LEFT || key == XK_RIGHT)

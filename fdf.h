@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 15:16:37 by ehelmine          #+#    #+#             */
-/*   Updated: 2020/12/09 01:20:21 by ehelmine         ###   ########.fr       */
+/*   Updated: 2020/12/09 19:51:29 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,12 @@
 # define FDF_H
 
 # define SIZE						700
-# define ESC_KEY					53
 # define XK_ESCAPE					0xff1b
 # define ZOOM_IN					105
 # define ZOOM_OUT					111
-# define MOVE_LEFT					123
 # define XK_LEFT					0xff51
-# define MOVE_RIGHT					124
 # define XK_RIGHT					0xff53
-# define MOVE_UP					126
 # define XK_UP						0xff52
-# define MOVE_DOWN					125
 # define XK_DOWN					0xff54
 # define PROJECTIONS				108
 # define PARALLEL					112
@@ -48,7 +43,6 @@ typedef struct	s_map
 	int			fd;
 	float		val_2;
 	float		val_1;
-	int			key;
 	float		y;
 	int			yy;
 	float		x;

@@ -6,40 +6,11 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/30 12:12:04 by ehelmine          #+#    #+#             */
-/*   Updated: 2020/12/08 16:56:39 by ehelmine         ###   ########.fr       */
+/*   Updated: 2020/12/09 19:38:38 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-float	abs_val(float x)
-{
-	if (x < 0)
-		return (x * -1);
-	else
-		return (x);
-}
-
-void	ft_dda(t_map *all)
-{
-	float x;
-	float y;
-	float next_x;
-	float next_y;
-
-	x = all->x;
-	y = all->y;
-	next_x = all->next_x;
-	next_y = all->next_y;
-	all->dx = next_x - x;
-	all->dy = next_y - y;
-	if (abs_val(all->dx) >= abs_val(all->dy))
-		all->slope = abs_val(all->dx);
-	else
-		all->slope = abs_val(all->dy);
-	all->dx = all->dx / all->slope;
-	all->dy = all->dy / all->slope;
-}
 
 void	ft_print_base_vertical(t_map *all)
 {
