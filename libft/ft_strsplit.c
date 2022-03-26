@@ -6,7 +6,7 @@
 /*   By: ehelmine <ehelmine@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/26 11:01:03 by ehelmine          #+#    #+#             */
-/*   Updated: 2020/10/14 14:42:09 by ehelmine         ###   ########.fr       */
+/*   Updated: 2022/03/24 11:23:45 by ehelmine         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,24 @@
 ** returns the array ["hello", "fellow", "students"].
 */
 
-#include "libft.h"
+#include "includes/libft.h"
 #include <stdlib.h>
+
+static char	**free_array(int x, char **array)
+{
+	int	i;
+
+	i = 0;
+	while (i < x)
+		free(array[i++]);
+	return (NULL);
+}
 
 static void	ft_addchar(int i, int w, char **same, const char *s)
 {
-	int ii;
-	int y;
-	int x;
+	int	ii;
+	int	y;
+	int	x;
 
 	ii = i - w;
 	y = 0;
@@ -44,17 +54,15 @@ static void	ft_addchar(int i, int w, char **same, const char *s)
 
 static char	**ft_thersplit(int wrds, char c, char **same, const char *s)
 {
-	int x;
-	int w;
-	int y;
-	int i;
+	int	x;
+	int	w;
+	int	i;
 
 	i = 0;
 	x = 0;
 	while (x < wrds)
 	{
 		w = 0;
-		y = 0;
 		while (s[i] == c)
 			i++;
 		while (s[i] != c && s[i] != '\0')
@@ -62,8 +70,9 @@ static char	**ft_thersplit(int wrds, char c, char **same, const char *s)
 			w++;
 			i++;
 		}
-		if (!(same[x] = (char *)malloc(sizeof(char) * (w + 1))))
-			return (NULL);
+		same[x] = (char *)malloc(sizeof(char) * (w + 1));
+		if (same == NULL)
+			return (free_array(x, same));
 		ft_addchar(i, w, &same[x], s);
 		x++;
 	}
@@ -72,35 +81,34 @@ static char	**ft_thersplit(int wrds, char c, char **same, const char *s)
 
 static int	ft_counting_words(const char *s, char c)
 {
-	int i;
-	int wrds;
+	int	i;
+	int	wrds;
 
 	i = 0;
 	wrds = 0;
 	while (s[i] != '\0')
 	{
 		if (i == 0 && s[i] != c)
-		{
 			wrds++;
-		}
 		if (s[i] != c && s[i - 1] == c)
-		{
 			wrds++;
-		}
 		i++;
 	}
 	return (wrds);
 }
 
-char		**ft_strsplit(char const *s, char c)
+char	**ft_strsplit(char const *s, char c)
 {
 	int		wrds;
 	char	**same;
 
 	wrds = ft_counting_words(s, c);
-	if (!(same = (char **)malloc(sizeof(char*) * (wrds + 1))))
+	same = (char **)malloc(sizeof(char *) * (wrds + 1));
+	if (same == NULL)
 		return (NULL);
 	same = ft_thersplit(wrds, c, same, s);
+	if (same == NULL)
+		return (NULL);
 	same[wrds] = NULL;
 	return (same);
 }
